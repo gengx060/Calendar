@@ -4,6 +4,7 @@ let httpClient = new HttpClient();
 import $ from 'jquery';
 import Util from 'util';
 
+//$(".date-picker").datepicker();
 //@inject(HttpClient)
 export class Welcome {
 	heading = 'Welcome to Aurelia!';
@@ -13,7 +14,6 @@ export class Welcome {
 	get fullName() {
 		return `${this.firstName} ${this.lastName}`;
 	}
-
 
 	fun1() {
 		let myPostData = {

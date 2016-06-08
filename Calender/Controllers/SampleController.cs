@@ -18,11 +18,6 @@ namespace Calender.Controllers
 			dynamic album = json;
 			album.name = "json";
 			return Ok(album);// Request.CreateResponse(HttpStatusCode.OK, album); //(album);
-			//return Json<JObject>(new { success = true, responseText = "Your message successfuly sent!" });
-
-			//var req = this.Request;
-			//return Json(new { success = true, responseText = "Your message successfuly sent!" }, JsonRequestBehavior.AllowGet);
-			//return Json("View()");
 		}
 
 		[HttpPost]
@@ -36,7 +31,6 @@ namespace Calender.Controllers
 
 			//var req = this.Request;
 			return Ok(album);
-			//return Json("View()");
 		}
 	}
 }

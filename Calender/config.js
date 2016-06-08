@@ -8,11 +8,11 @@ System.config({
     ]
   },
   paths: {
-  	"*": "src/*",
-  	"util": "src/util/util",
+    "*": "src/*",
+    "util": "src/util/util",
     "github:*": "jspm_packages/github/*",
     "npm:*": "jspm_packages/npm/*",
-    "jquery": "jspm_packages/github/components/jquery@2.2.0",
+    "jquery": "jspm_packages/github/components/jquery@2.2.0"
   },
 
   map: {
@@ -33,7 +33,11 @@ System.config({
     "core-js": "npm:core-js@2.1.0",
     "fetch": "github:github/fetch@0.10.1",
     "font-awesome": "npm:font-awesome@4.5.0",
+    "jquery-ui": "github:components/jqueryui@1.11.4",
     "text": "github:systemjs/plugin-text@0.0.4",
+    "github:components/jqueryui@1.11.4": {
+      "jquery": "npm:jquery@2.2.4"
+    },
     "github:jspm/nodelibs-assert@0.1.0": {
       "assert": "npm:assert@1.3.0"
     },

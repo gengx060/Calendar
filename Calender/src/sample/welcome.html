@@ -4,6 +4,24 @@
 
 		<form>
 			<div>
+				<require from="../util/datepicker"></require>
+				<input datepicker value.bind="dateValue">
+				<div class="form-control-date">
+					<input type="text" id="dateFrom" class="dateCal form-control" placeholder="From...">
+				</div>
+				<div class="control-group">
+					<label for="date-picker-3" class="control-label">C</label>
+					<div class="controls">
+						<div class="input-group">
+							<label for="date-picker-3" class="input-group-addon btn">
+								<span class="glyphicon glyphicon-calendar"></span>
+
+							</label>
+							<input id="date-picker-3" type="text" class="date-picker form-control" />
+						</div>
+					</div>
+				</div>
+
 				<label>First Name</label>
 				<input type="text" value.bind="firstName & debounce:2000">
 			</div>
