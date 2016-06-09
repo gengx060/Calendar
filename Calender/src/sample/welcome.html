@@ -1,26 +1,11 @@
 <template>
 	<section>
 		<h2>${heading}</h2>
-
+		<require from="../util/datepicker"></require>
 		<form>
 			<div>
-				<require from="../util/datepicker"></require>
-				<input datepicker value.bind="dateValue">
-				<div class="form-control-date">
-					<input type="text" id="dateFrom" class="dateCal form-control" placeholder="From...">
-				</div>
-				<div class="control-group">
-					<label for="date-picker-3" class="control-label">C</label>
-					<div class="controls">
-						<div class="input-group">
-							<label for="date-picker-3" class="input-group-addon btn">
-								<span class="glyphicon glyphicon-calendar"></span>
-
-							</label>
-							<input id="date-picker-3" type="text" class="date-picker form-control" />
-						</div>
-					</div>
-				</div>
+				Hello, ${date1}!
+				<datepicker class='margin-top' date-value.bind="date1"> </datepicker>
 
 				<label>First Name</label>
 				<input type="text" value.bind="firstName & debounce:2000">
@@ -35,7 +20,7 @@
 				<p text.bind="fullName"></p>
 			</div>
 			<button click.delegate = "fun1()">test</button>
-			<button click.delegate = "myFunction()">123123</button>
+			<button click.delegate = "fun2()">123123</button>
 		</form>
 	</section>
 </template>

@@ -10,6 +10,7 @@ export class Welcome {
 	heading = 'Welcome to Aurelia!';
 	firstName = 'John';
 	lastName = 'Doe';
+	date1 = '10/26/2013';
 
 	get fullName() {
 		return `${this.firstName} ${this.lastName}`;
@@ -30,6 +31,10 @@ export class Welcome {
 				console.log(res);
 			}
 		);
+	}
+	
+	fun2() {
+		console.log(this);
 	}
 
 	submit() {
