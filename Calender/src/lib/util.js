@@ -1,5 +1,6 @@
 ﻿
 import $ from 'jquery';
+import toastr from 'lib/toastr';
 
 //@inject(HttpClient)
 export class Util {

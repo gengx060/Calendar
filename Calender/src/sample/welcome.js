@@ -1,17 +1,30 @@
 
 import {HttpClient, json} from 'aurelia-fetch-client';
+import {inject, bindable} from 'aurelia-framework';
+//import {DialogService} from 'aurelia-dialog';
+
 let httpClient = new HttpClient();
 import $ from 'jquery';
-import Util from 'util';
+import Util from 'lib/util';
+//import {Modal} from 'util/tags/modal';
 
-//$(".date-picker").datepicker();
-//@inject(HttpClient)
+//$(".date-picker").datepicker();s
+@inject(Element)
+//@inject(DialogService)
 export class Welcome {
+	//static inject = [DialogService];
 	heading = 'Welcome to Aurelia!';
 	firstName = 'John';
 	lastName = 'Doe';
 	date1 = '10/26/2013';
+	number = 121
 
+	constructor(element) {
+		this.element = element;
+		//this.dialogService = dialogService;
+		console.log(this.element);
+	}
+	
 	get fullName() {
 		return `${this.firstName} ${this.lastName}`;
 	}
@@ -35,9 +48,13 @@ export class Welcome {
 	
 	fun2() {
 		console.log(this);
+		this.dlg.open({
+			viewModel: Confirm
+			, model: {}
+		})
 	}
-
-	submit() {
-		alert(`Welcome, ${this.fullName}!`);
+	 
+	attached(){
+		//this.myDialog.open();
 	}
 }

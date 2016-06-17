@@ -1,7 +1,4 @@
 ﻿import {customElement, bindable, inject, bindingMode} from 'aurelia-framework';
-//if typeof($)==='undefined'
-//import $ from 'jquery';
-// import 'jquery';
 import { datepicker } from 'jquery-ui';
 //import 'jspm_packages/github/components/jqueryui@1.11.4/themes/base/jquery-ui.css!'
 
@@ -10,9 +7,6 @@ import { datepicker } from 'jquery-ui';
 //@bindable('value')
 export class DatePicker {
 	@bindable({ defaultBindingMode: bindingMode.twoWay }) dateValue = '10/23/2013';
-    //@bindable id = '';
-    //@bindable name = '';
-    //@bindable options = {};
 
 	constructor(element) {
 		this.element = element;

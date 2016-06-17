@@ -1,7 +1,9 @@
 <template>
 	<section>
 		<h2>${heading}</h2>
-		<require from="../util/datepicker"></require>
+		<!--<require from="../util/datepicker"></require>-->
+		<!--<require from="../util/tags/panel1/panel"></require>-->
+		<require from="../util/tags/test"></require>
 		<form>
 			<div>
 				Hello, ${date1}!
@@ -21,6 +23,11 @@
 			</div>
 			<button click.delegate = "fun1()">test</button>
 			<button click.delegate = "fun2()">123123</button>
+
+			<!--<modal panel-title="${date1}" panel-number="${number}"> </modal>-->
 		</form>
+		<panel panel-title="${date1}" panel-number="${number}" panel-icon="fa-comments"> </panel>
+
+		<Test></Test>
 	</section>
 </template>

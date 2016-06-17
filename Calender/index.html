@@ -1,18 +1,17 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Aurelia</title>
-    <link rel="stylesheet" href="styles/styles.css">
-  	<link rel="stylesheet" type="text/css" media="all"
-			href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/themes/smoothness/jquery-ui.css" />
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-  </head>
+<head>
+	<title>Aurelia</title>
+	<link rel="stylesheet" href="styles/styles.css">
+	<!--<link href="jspm_packages/github/components/jqueryui@1.11.4/themes/base/jquery-ui.css" rel="stylesheet" />-->
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
 
-  <body aurelia-app>
-    <script src="jspm_packages/system.js"></script>
-    <script src="config.js"></script>
-    <script>
-      SystemJS.import('aurelia-bootstrapper');
-    </script>
-  </body>
+<body aurelia-app="main">
+	<script src="jspm_packages/system.js"></script>
+	<script src="config.js"></script>
+	<script>
+		SystemJS.import('aurelia-bootstrapper')
+	</script>
+</body>
 </html>
