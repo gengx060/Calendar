@@ -41,31 +41,20 @@ namespace Calender.Controllers
 		{
 		}
 
-		private string GetClientIp()
+		private string GetClientIp(HttpRequestMessage req)
 		{
 			string ip = null;
 			// Web-hosting. Needs reference to System.Web.dll
-			if (Request.Properties.ContainsKey("MS_HttpContext"))
+			if (req.Properties.ContainsKey("MS_HttpContext"))
 			{
-				ip = ((HttpContextWrapper)Request.Properties["MS_HttpContext"]).Request.UserHostAddress;
+				ip = ((HttpContextWrapper)req.Properties["MS_HttpContext"]).Request.UserHostAddress;
 			}
-
-			//// Self-hosting
-			//if (request.Properties.ContainsKey(RemoteEndpointMessage))
-			//{
-			//	RemoteEndpointMessageProperty remoteEndpoint =
-			//		(RemoteEndpointMessageProperty)request.Properties[RemoteEndpointMessage];
-			//	if (remoteEndpoint != null)
-			//	{
-			//		return remoteEndpoint.Address;
-			//	}
-			//}
 
 			string OwinContext = "MS_OwinContext";
 			// Self-hosting using Owin
-			if (Request.Properties.ContainsKey(OwinContext))
+			if (req.Properties.ContainsKey(OwinContext))
 			{
-				OwinContext owinContext = (OwinContext)Request.Properties[OwinContext];
+				OwinContext owinContext = (OwinContext)req.Properties[OwinContext];
 				if (owinContext != null)
 				{
 					ip = owinContext.Request.RemoteIpAddress;
@@ -84,9 +73,7 @@ namespace Calender.Controllers
 		public IHttpActionResult Login([FromBody]JObject json)
 		{
 			dynamic user = json;
-			user.ip = GetClientIp();
-			//return JsonConvert.SerializeObject(album);
-			//return Json<JObject>(new { success = true, responseText = "Your message successfuly sent!" });
+			user.ip = GetClientIp(Request);
 			if (user.email != "s@s")
 			{
 				return BadRequest("wrong username and password!");
@@ -95,7 +82,6 @@ namespace Calender.Controllers
 			HttpCookie aCookie = new HttpCookie("lastVisit");
 			aCookie.Value = DateTime.Now.ToString();
 			aCookie.Expires = DateTime.Now.AddDays(1);
-			//Response.Cookies.Add(aCookie);
 			user.cookies = aCookie.Value;
 
 			////var req = this.Request;
