@@ -1,6 +1,7 @@
 ﻿import {customElement, bindable, inject, bindingMode} from 'aurelia-framework';
-import { datepicker } from 'jquery-ui';
-//import $ from 'bootstrap';
+//import { datepicker } from 'jquery-ui';
+import $ from 'bootstrap';
+import Datepicker from 'lib/bootstrap-datepicker';
 
 @customElement('datepicker')
 @inject(Element)
@@ -17,7 +18,7 @@ export class DatePicker {
 		self = this;
 		$(this.element).find('div div input').datepicker()
 			//.on('change', e => fireEvent(e.target, 'input'));
-			.on('change', e => {
+			.on('changeDate', e => {
 				let changeEvent = new CustomEvent('input', {
 					detail: {
 						value: e.val
@@ -32,7 +33,7 @@ export class DatePicker {
 
 	detached() {
 		$(this.element).datepicker('destroy')
-		  .off('change');
+		  .off('changeDate');
 	}
 }
 
