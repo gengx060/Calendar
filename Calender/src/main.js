@@ -4,6 +4,7 @@
 		.developmentLogging()
 		//.plugin('aurelia-dialog')
 		.feature('util/tags');
+      //.plugin('aurelia-bootstrap-datepicker');
 		//.plugin('aurelia-dialog');
 
 		//.globalResources('util/tags/panel');

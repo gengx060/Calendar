@@ -2,7 +2,7 @@
 import {inject, bindable} from 'aurelia-framework';
 import toastr from 'lib/toastr';
 import Enumerable from 'lib/linq';
-import {dialog} from 'jquery-ui';
+import BootstrapDialog from 'lib/bootstrap-dialog';
 
 
 @inlineView('<template><button click.delegate="greet()">${text}</button></template>')
@@ -17,7 +17,21 @@ export class Test {
 		////alert(this.text);
 		//toastr.success('Success messages!', 'test');
 		//[21,23,22].forEach(function(i){console.log(i);});
-		$("<p>Hello World!</p>").dialog();
+		//$("<p>Hello World!</p>").dialog();
+		
+		//var dialog = new BootstrapDialog({
+		//	message: 'Custom spinning icon.',
+		//	spinicon: 'fa fa-spinner fa-fw',
+		//	buttons: [{
+		//		label: 'Spin',
+		//		autospin: true
+		//	}]
+		//});
+		//dialog.alert();
+		BootstrapDialog.alert('I want banana!');
+		BootstrapDialog.alert('I want banana!');
+		BootstrapDialog.alert('I want banana!');
+		BootstrapDialog.alert('I want banana!');
 	}
 }
 

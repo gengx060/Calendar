@@ -8,6 +8,7 @@
 			<div>
 				Hello, ${date1}!
 				<datepicker class='margin-top' date-value.bind="date1"> </datepicker>
+				<!--<bootstrap-datepicker value.bind="'mm-dd-yyyy'" dp-options.bind="date1" changedate.delegate="mychangedatefunction($event)"></bootstrap-datepicker>-->
 
 				<label>First Name</label>
 				<input type="text" value.bind="firstName & debounce:2000">
@@ -21,13 +22,17 @@
 				<p>${fullName+'12312'}</p>
 				<p text.bind="fullName"></p>
 			</div>
-			<button click.delegate = "fun1()">test</button>
-			<button click.delegate = "fun2()">123123</button>
+			<button click.delegate="fun1()">test</button>
+			<button click.delegate="fun2()">123123</button>
+			<button click.delegate="fun3()">123123</button>
 
 			<!--<modal panel-title="${date1}" panel-number="${number}"> </modal>-->
+
+			<!--<modal> </modal>-->
 		</form>
 		<panel panel-title="${date1}" panel-number="${number}" panel-icon="fa-comments"> </panel>
 
 		<Test></Test>
+		<div ref="container"></div>
 	</section>
 </template>

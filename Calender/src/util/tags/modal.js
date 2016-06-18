@@ -1,15 +1,28 @@
-﻿import {inject, bindable} from 'aurelia-framework';
-import $ from 'jquery';
+﻿
+import {inject, bindable} from 'aurelia-framework';
+import $ from 'bootstrap';
+//import {modal} from 'jquery-ui';
 
 @inject(Element)
 export class Modal {
+	@bindable selectedSkin;
+	@bindable panelIf;
 
 	constructor(element) {
-		console.log("constr");
 		this.element = element;
+		this.modal = null;
+		this.panelIf = true;
+		this.skins = [
+			'black',
+			'blue'
+		]
 	}
 	attached(){
-		console.log("attachedq");
-		$(this.modal).modal();
+		this.modal = $(this.element).find('div.modal');
+		this.modal.modal({backdrop: 'static', keyboard: false});
+	}
+
+	toggle() {
+		this.modal.modal('toggle');
 	}
 }
