@@ -11,6 +11,7 @@ namespace Calender.Controllers
 		public ActionResult Index()
 		{
 			return View();
+			//return Redirect(Url.Content("index.html"));
 		}
 	}
 }

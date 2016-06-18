@@ -9,6 +9,7 @@
 
 		//.globalResources('util/tags/panel');
 	//.plugin('./resources/index');
-
-	aurelia.start().then(a => a.setRoot());
+	
+	//aurelia.start().then(a => a.setRoot());
+	aurelia.start().then(a => a.setRoot('pages/login'));
 }
