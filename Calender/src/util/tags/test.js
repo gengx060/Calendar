@@ -28,10 +28,9 @@ export class Test {
 		//	}]
 		//});
 		//dialog.alert();
-		BootstrapDialog.alert('I want banana!');
-		BootstrapDialog.alert('I want banana!');
-		BootstrapDialog.alert('I want banana!');
-		BootstrapDialog.alert('I want banana!');
+		//BootstrapDialog.alert('I want banana!');
+		//BootstrapDialog.danger('I want banana!');
+		//BootstrapDialog.confirm('I want banana!');
 	}
 }
 

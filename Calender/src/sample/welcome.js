@@ -2,11 +2,14 @@
 import {HttpClient, json} from 'aurelia-fetch-client';
 import {inject, bindable} from 'aurelia-framework';
 import {ViewFactory} from 'lib/view-factory';
+import $ from 'bootstrap';
+import BootstrapDialog from 'lib/bootstrap-dialog';
+
 
 //let httpClient1 = ViewFactory();
 
 let httpClient = new HttpClient();
-import $ from 'jquery';
+//import $ from 'jquery';
 import Util from 'lib/util';
 //import {Modal} from 'util/tags/modal';
 
@@ -73,25 +76,42 @@ export class Welcome {
 		);
 	}
 	
-	fun2() {
-		let viewModel = null;
-		this.fun3();
-		try {
-			eval('viewModel = ' + this.viewModelJs);
-		}
-		catch(e) {
-			this.container.innerHTML = '<em style="color:red">Error parsing view model.</em>';
-			return;
-		}
-		this.dispose = this.viewFactory.insert(this.container, this.viewHtml, viewModel);
+	fun2() { 
+		//BootstrapDialog.alert('I want banana!');
+		BootstrapDialog.show({
+			message: 'I send ajax request!',
+			buttons: [{
+				icon: 'glyphicon glyphicon-send',
+				label: 'Send ajax request',
+				cssClass: 'btn-primary',
+				autospin: true,
+				action: function(dialogRef){
+					dialogRef.enableButtons(false);
+					dialogRef.setClosable(false);
+					dialogRef.getModalBody().html('Dialog closes in 5 seconds.');
+					setTimeout(function(){
+						dialogRef.close();
+					}, 5000);
+				}
+			}, {
+				label: 'Close',
+				action: function(dialogRef){
+					dialogRef.close();
+				}
+			}]
+		});
 	}
 	 
 	
 	fun3() {
-		if (this.dispose) {
-			this.dispose();
-			this.dispose = null;
-		}
+		BootstrapDialog.confirm('I want banana!', function(res) {
+			if(res) {
+				console.log(res);
+			} else {
+				alert(1212);
+			}
+
+		});
 	}
 
 	attached(){

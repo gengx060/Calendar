@@ -27,7 +27,7 @@
     }
     // AMD module is defined
     else if (typeof define === "function" && define.amd) {
-        define("bootstrap-dialog", ["jquery", "bootstrap"], function ($) {
+    	define("bootstrap-dialog", [ "bootstrap", "jquery"], function ($) {
             return factory($);
         });
     } else {
@@ -1207,7 +1207,7 @@
     BootstrapDialog.alert = function () {
         var alertOptions = {};
         var defaultAlertOptions = {
-            type: BootstrapDialog.TYPE_PRIMARY,
+        	type: BootstrapDialog.TYPE_DANGER,
             title: null,
             message: null,
             closable: false,
