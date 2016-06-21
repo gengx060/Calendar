@@ -11,6 +11,9 @@ namespace Calender
 {
 	public static class WebApiConfig
 	{
+		public static string UrlPrefix { get { return "api"; } }
+		public static string UrlPrefixRelative { get { return "~/api"; } }
+
 		public static void Register(HttpConfiguration config)
 		{
 			// Web API configuration and services
@@ -30,6 +33,7 @@ namespace Calender
 				defaults: new { id = RouteParameter.Optional }
 			);
 			config.Formatters.JsonFormatter.SupportedMediaTypes.Add(new MediaTypeHeaderValue("text/html"));
+			config.MessageHandlers.Add(new AntiForgeryHandler());
 		}
 	}
 }

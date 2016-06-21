@@ -10,13 +10,13 @@ export class DatePicker {
 	@bindable({ defaultBindingMode: bindingMode.twoWay }) dateValue = '10/22/2013';
 
 	constructor(element) {
-		this.element = element;
+		this.element = $(this.element).find('div div input');
 		//this.dateValue = '10/23/2013';
 	}
 
 	attached() {
 		self = this;
-		$(this.element).find('div div input').datepicker()
+		$(this.element).datepicker()
 			//.on('change', e => fireEvent(e.target, 'input'));
 			.on('changeDate', e => {
 				let changeEvent = new CustomEvent('input', {
@@ -32,8 +32,12 @@ export class DatePicker {
 	}
 
 	detached() {
-		$(this.element).datepicker('destroy')
-		  .off('changeDate');
+		try{
+			$(this.element).datepicker('remove')
+			  .off('changeDate');
+		}catch(e){
+			alert(e);
+		}
 	}
 }
 

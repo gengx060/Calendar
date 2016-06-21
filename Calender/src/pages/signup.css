@@ -1,0 +1,50 @@
+.form-box {
+	margin-top: 70px;
+}
+
+.form-top {
+	overflow: hidden;
+	padding: 0 25px 15px 25px;
+	background: #f3f3f3;
+	-moz-border-radius: 4px 4px 0 0; -webkit-border-radius: 4px 4px 0 0; border-radius: 4px 4px 0 0;
+	text-align: left;
+}
+
+.form-top-left {
+	float: left;
+	width: 75%;
+	padding-top: 25px;
+}
+
+.form-top-left h3 { margin-top: 0; }
+
+.form-top-right {
+	float: left;
+	width: 25%;
+	padding-top: 5px;
+	font-size: 66px;
+	color: #ddd;
+	line-height: 100px;
+	text-align: right;
+}
+
+.form-bottom {
+	padding: 25px 25px 30px 25px;
+	background: #eee;
+	text-align: left;
+}
+
+input[type="text"], 
+input[type="password"], 
+input[type="email"],
+textarea, 
+textarea.form-control {
+	height: 50px;
+	font-size: 16px;
+	/*border: 1px solid #ddd;*/
+}
+
+button.btn {
+	height: 50px;
+	font-size: 16px;
+}

@@ -1,38 +1,44 @@
-//import {inject} from 'aurelia-framework';
-//import {HttpClient} from 'aurelia-fetch-client';
-//import 'fetch';
-
-//@inject(HttpClient)
-//export class Users {
-//	heading = 'Github Users';
-//	users = [];
-
-//	constructor(http) {
-//		http.configure(config => {
-//			config
-//			  .useStandardConfiguration()
-//			  .withBaseUrl('https://api.github.com/');
-//		});
-
-//		this.http = http;
-//	}
-
-//	activate() {
-//		return this.http.fetch('users')
-//		  .then(response => response.json())
-//		  .then(users => this.users = users);
-//	}
-//}
-
 import BootstrapDialog from 'lib/bootstrap-dialog';
+import {Aurelia, inject} from 'aurelia-framework';
+import {Router} from 'aurelia-router';
 import Util from 'lib/util';
 
+
+@inject(Router, Aurelia)
 export class Login {
 	email = 's@s';
 	password = '12312313';
 	loading = false;
-	constructor() {
+
+	constructor(router, aurelia) {
+		this.router = router;
+		this.aurelia = aurelia;
 	}
+	configure() {
+
+		var appRouterConfig = function(config) {
+
+			//config.title = 'Random Quotes App';
+
+			//// Here, we hook into the authorize extensibility point
+			//// to add a route filter so that we can require authentication
+			//// on certain routes
+			//config.addPipelineStep('authorize', AuthorizeStep);
+
+			// Here, we describe the routes we want along with information about them
+			// such as which they are accessible at, which module they use, and whether
+			// they should be placed in the navigation bar
+			config.map([
+				{ route: 'signup', name: 'signup', moduleId: 'pages/signup', nav: false, title:'Signup', authRoute: false },
+				{ route: 'login', name: 'login', moduleId: 'pages/login', nav: false, title:'Login', authRoute: false },
+				{ route: 'logout', name: 'logout', moduleId: './logout', nav: false, title:'Logout', authRoute: true }
+			]);
+		};
+
+		// The router is configured with what we specify in the appRouterConfig
+		this.router.configure(appRouterConfig);
+
+	};
 
 	submit() {
 		//Util.createCookie('this is a test', 0.1)
@@ -57,5 +63,10 @@ export class Login {
 				self.loading = false;
 			}
 		)
+	}
+	
+	register(){
+		//this.router.navigate("signup");
+		this.aurelia.setRoot('pages/signup')
 	}
 }

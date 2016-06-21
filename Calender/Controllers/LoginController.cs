@@ -9,11 +9,21 @@ using System.Web.Http;
 using System.Web;
 using System.ServiceModel;
 using Microsoft.Owin;
+using Calender.Models;
+using System.Data.Entity.Validation;
+using System.Diagnostics;
+using GGEncrypt;
+using System.Threading.Tasks;
+using System.Web.Helpers;
+using Calender.Models.Rule;
 
 namespace Calender.Controllers
 {
 	public class LoginController : ApiController
 	{
+		//private Mysql _db = new Mysql();
+		private Entities _db = new Entities();
+
 		// GET api/<controller>
 		public IEnumerable<string> Get()
 		{
@@ -72,22 +82,74 @@ namespace Calender.Controllers
 		[HttpPost]
 		public IHttpActionResult Login([FromBody]JObject json)
 		{
-			dynamic user = json;
-			user.ip = GetClientIp(Request);
-			if (user.email != "s@s")
+			dynamic args = json;
+			//Session["test"] = "";
+			HttpContext.Current.Session["test"] = "";
+			string email = args.email;
+			string password = args.password.ToString();
+			var user = _db.user.FirstOrDefault(o => o.email == email);
+				
+			if(Encryption.CompareHashFromPassword(user.password.ToString(), password))
 			{
-				return BadRequest("wrong username and password!");
+				// Match!
+				Userlogin login = new Models.Userlogin()
+				{
+					//firstname = user.iduser,
+					//lastname = ob.lastName,
+					//username = ob.firstName,
+					//email = ob.email,
+					//password = Encryption.GenerateSHA256Hash(ob.password.ToString()),
+					//org_id = null
+				};
+				return Ok(user);
 			}
+			else
+			{
+				return Content(HttpStatusCode.InternalServerError, "Wrong username and password!");
+			}
+
+			args.ip = GetClientIp(Request);
 
 			HttpCookie aCookie = new HttpCookie("lastVisit");
 			aCookie.Value = DateTime.Now.ToString();
 			aCookie.Expires = DateTime.Now.AddDays(1);
-			user.cookies = aCookie.Value;
+			args.cookies = aCookie.Value;
 
-			////var req = this.Request;
-			//IHttpActionResult res = Ok(user);
-			//res.
+
 			return Ok(user);
+		}
+
+		[HttpPost]
+		public async Task<IHttpActionResult> Signup([FromBody]JObject json)
+		{
+			dynamic ob = json;
+			int ret = -1;
+			string str = "";
+			await Task.Run(() =>
+			{
+				User user = new Models.User()
+				{
+					firstname = ob.firstName,
+					lastname = ob.lastName,
+					username = ob.firstName,
+					email = ob.email,
+					password = Encryption.GenerateSHA256Hash(ob.password.ToString()),
+					org_id = null
+				};
+
+				_db.user.Add(user);
+				ret = _db.TrySaveChanges();
+			});
+
+			return ret > 0 ? Ok(ob): Content(HttpStatusCode.InternalServerError, str);
+		}
+
+		[HttpPost]
+		public IHttpActionResult Token()
+		{
+			Token token = new Token();
+			JObject json = JObject.FromObject(new { antiForgeryToken = token.GenerateTokenWithId(10) }); ;
+			return Ok(json);
 		}
 	}
 }

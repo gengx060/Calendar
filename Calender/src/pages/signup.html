@@ -1,0 +1,40 @@
+﻿<template>
+	<require from="bootstrap/css/bootstrap.css"></require>
+	<require from="font-awesome/css/font-awesome.css"></require>
+	<require from="pages/signup.css"></require>
+	<div class="container col-md-6 col-md-offset-3  col-lg-4 col-lg-offset-4">
+		<div class="form-box ">
+			<div class="form-top">
+				<div class="form-top-left">
+					<h3>Sign up now</h3>
+					<p>Fill in the form below to get instant access:</p>
+				</div>
+				<div class="form-top-right">
+					<i class="fa fa-pencil"></i>
+				</div>
+			</div>
+			<div class="form-bottom">
+				<form role="form" class="registration-form">
+					<div class="form-group">
+						<input type="text" value.bind='firstName' placeholder="First name..." class="form-control" required>
+					</div>
+					<div class="form-group  has-warning">
+						<input type="text" value.bind='lastName' placeholder="Last name..." class="form-control  input-md" required>
+					</div>
+					<div class="form-group">
+						<input type="email" value.bind='email' placeholder="Email..." class="form-control" required>
+					</div>
+					<div class="form-group">
+						<input type="password" value.bind='password1' placeholder="password..." class="form-control" required>
+					</div>
+					<div class="form-group has-error">
+						<input type="password" value.bind='password2' placeholder="password..." class="form-control" required>
+					</div>
+					<button disabled.bind="loading" type="submit" class="btn btn-info btn-block" click.delegate="submit1()">
+						Sign me up! <i if.bind="loading" class="fa fa-spin fa-spinner"></i>
+					</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</template>

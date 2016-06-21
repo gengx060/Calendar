@@ -11,5 +11,6 @@
 	//.plugin('./resources/index');
 	
 	//aurelia.start().then(a => a.setRoot());
-	aurelia.start().then(a => a.setRoot('pages/login'));
+	//aurelia.start().then(a => a.setRoot('pages/login'));
+	aurelia.start().then(a => a.setRoot('pages/signup'));
 }
