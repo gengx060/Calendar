@@ -18,6 +18,10 @@ export class Signup {
 		this.router = router;
 		this.aurelia = aurelia;
 	}
+	
+	loginPage() {
+		setTimeout(()=>this.aurelia.setRoot('pages/login'), 500);
+	}
 
 	submit1() {
 		

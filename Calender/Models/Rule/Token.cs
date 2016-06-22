@@ -10,7 +10,7 @@ namespace Calender.Models.Rule
 	{
 		private Entities _db = new Entities();
 
-		public string GenerateTokenWithId(int userId)
+		public string GenerateTokenWithId(int userId, string ip)
 		{
 			var cookie = string.Empty;
 			var form = string.Empty;
@@ -20,7 +20,8 @@ namespace Calender.Models.Rule
 				userid = userId,
 				cookie = cookie,
 				form = form,
-				create_time = DateTime.Now
+				create_time = DateTime.Now,
+				userIp = ip
 			};
 			_db.userlogin.Add(login);
 			_db.TrySaveChanges();
@@ -28,7 +29,7 @@ namespace Calender.Models.Rule
 			return cookie + ':' + form + ':' + userId;
 		}
 
-		public bool validate(string token)
+		public bool validate(string token, string ip)
 		{
 			var cookie = string.Empty;
 			var form = string.Empty;
@@ -41,9 +42,10 @@ namespace Calender.Models.Rule
 				int.TryParse(tokens[2].Trim(), out userId);
 			}
 			//ret = _db.userlogin.Max(i => i.create_time); Any(o => o.cookie == cookie && o.form == form);
-			var userlogin = _db.userlogin.Where(o => o.userid == userId).OrderByDescending(y => y.create_time).FirstOrDefault();
+			var userlogin = _db.userlogin.Where(o => o.userid == userId && o.userIp == ip)
+				.OrderByDescending(y => y.create_time).FirstOrDefault();
 
-			if (userlogin == null || (DateTime.Now - userlogin.create_time).Value.Minutes > 2)
+			if (userlogin == null || (DateTime.Now - userlogin.create_time).Value.Hours > 2)
 			{
 				return false;
 			}

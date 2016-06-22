@@ -11,12 +11,17 @@ export class Util {
 	} 
 
 	static ajaxRequest(myPostData, url, success, error, complete) {
+
+		var headers = {};
+		headers.antiForgeryToken = sessionStorage.getItem("antiForgeryToken");
+
 		let options = {
 			url: '/api/'+url, //'/api/Sample/Test2',
 			type: "post",
 			data: JSON.stringify(myPostData),
 			contentType: "application/json; charset=UTF-8",
 			dataType: "text",
+			headers: headers,
 			//async: !isSync,
 			context: this,
 			success: success, 
@@ -27,31 +32,42 @@ export class Util {
 		$.ajax(options);
 	}
 
-	static createCookie(value, days) {
-		let expires = '';
-
-		if (days) {
-			var date = new Date();
-			date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-			expires = "; expires=" + date.toGMTString();
-		}
-
-		document.cookie = encodeURIComponent(cookieNmae) + "=" + encodeURIComponent(value) + expires + "; path=/";
+	static checkLogin(aurelia) {
+		Util.ajaxRequest({}, 'Login/IsSignedIn',
+			res => {
+				aurelia.setRoot('app');
+			},res => {
+				console.log(res);
+			},res => {
+				self.loading = false;
+			}
+		)
 	}
+	//static createCookie(value, days) {
+	//	let expires = '';
 
-	static readCookie() {
-		var nameEQ = encodeURIComponent(cookieNmae) + "=";
-		var ca = document.cookie.split(';');
-		for (var i = 0; i < ca.length; i++) {
-			var c = ca[i];
-			while (c.charAt(0) === ' ') c = c.substring(1, c.length);
-			if (c.indexOf(nameEQ) === 0) return decodeURIComponent(c.substring(nameEQ.length, c.length));
-		}
-		return null;
-	}
+	//	if (days) {
+	//		var date = new Date();
+	//		date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+	//		expires = "; expires=" + date.toGMTString();
+	//	}
 
-	eraseCookie() {
-		createCookie(cookieNmae, "", -1);
-	}
+	//	document.cookie = encodeURIComponent(cookieNmae) + "=" + encodeURIComponent(value) + expires + "; path=/";
+	//}
+
+	//static readCookie() {
+	//	var nameEQ = encodeURIComponent(cookieNmae) + "=";
+	//	var ca = document.cookie.split(';');
+	//	for (var i = 0; i < ca.length; i++) {
+	//		var c = ca[i];
+	//		while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+	//		if (c.indexOf(nameEQ) === 0) return decodeURIComponent(c.substring(nameEQ.length, c.length));
+	//	}
+	//	return null;
+	//}
+
+	//eraseCookie() {
+	//	createCookie(cookieNmae, "", -1);
+	//}
 }
 export default Util;

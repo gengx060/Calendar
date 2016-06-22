@@ -28,6 +28,7 @@
           <Property Name="create_time" Type="datetime" Precision="0" />
           <Property Name="cookie" Type="varchar" MaxLength="512" />
           <Property Name="form" Type="varchar" MaxLength="512" />
+          <Property Name="userIp" Type="varchar" MaxLength="45" />
         </EntityType>
         <Association Name="USERID">
           <End Role="user" Type="Self.user" Multiplicity="1" />
@@ -78,6 +79,7 @@
           <NavigationProperty Name="User" Relationship="Self.USERID" FromRole="userlogin" ToRole="user" />
           <Property Name="cookie" Type="String" MaxLength="512" FixedLength="false" Unicode="false" />
           <Property Name="form" Type="String" MaxLength="512" FixedLength="false" Unicode="false" />
+          <Property Name="userIp" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="USERID">
           <End Role="user" Type="ggModel.User" Multiplicity="1" />
@@ -121,6 +123,7 @@
           <EntitySetMapping Name="userlogin">
             <EntityTypeMapping TypeName="ggModel.Userlogin">
               <MappingFragment StoreEntitySet="userlogin">
+                <ScalarProperty Name="userIp" ColumnName="userIp" />
                 <ScalarProperty Name="form" ColumnName="form" />
                 <ScalarProperty Name="cookie" ColumnName="cookie" />
                 <ScalarProperty Name="iduserlogin" ColumnName="iduserlogin" />

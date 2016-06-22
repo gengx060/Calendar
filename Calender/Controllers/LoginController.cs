@@ -51,33 +51,6 @@ namespace Calender.Controllers
 		{
 		}
 
-		private string GetClientIp(HttpRequestMessage req)
-		{
-			string ip = null;
-			// Web-hosting. Needs reference to System.Web.dll
-			if (req.Properties.ContainsKey("MS_HttpContext"))
-			{
-				ip = ((HttpContextWrapper)req.Properties["MS_HttpContext"]).Request.UserHostAddress;
-			}
-
-			string OwinContext = "MS_OwinContext";
-			// Self-hosting using Owin
-			if (req.Properties.ContainsKey(OwinContext))
-			{
-				OwinContext owinContext = (OwinContext)req.Properties[OwinContext];
-				if (owinContext != null)
-				{
-					ip = owinContext.Request.RemoteIpAddress;
-				}
-			}
-
-			if (ip == "::1")
-			{
-				ip = "127.0.0.1";
-			}
-
-			return ip;
-		}
 
 		[HttpPost]
 		public IHttpActionResult Login([FromBody]JObject json)
@@ -88,35 +61,23 @@ namespace Calender.Controllers
 			string email = args.email;
 			string password = args.password.ToString();
 			var user = _db.user.FirstOrDefault(o => o.email == email);
-				
-			if(Encryption.CompareHashFromPassword(user.password.ToString(), password))
+
+			if (Encryption.CompareHashFromPassword(user.password.ToString(), password))
 			{
-				// Match!
-				Userlogin login = new Models.Userlogin()
-				{
-					//firstname = user.iduser,
-					//lastname = ob.lastName,
-					//username = ob.firstName,
-					//email = ob.email,
-					//password = Encryption.GenerateSHA256Hash(ob.password.ToString()),
-					//org_id = null
-				};
-				return Ok(user);
+				Token token = new Token();
+				JObject json1 = JObject.FromObject(new { antiForgeryToken = token.GenerateTokenWithId(10, ModelUtil.GetClientIp(Request)) }); ;
+				return Ok(json1);
 			}
 			else
 			{
-				return Content(HttpStatusCode.InternalServerError, "Wrong username and password!");
+				return Content(HttpStatusCode.Forbidden, "Wrong username and password!");
 			}
-
-			args.ip = GetClientIp(Request);
-
-			HttpCookie aCookie = new HttpCookie("lastVisit");
-			aCookie.Value = DateTime.Now.ToString();
-			aCookie.Expires = DateTime.Now.AddDays(1);
-			args.cookies = aCookie.Value;
-
-
-			return Ok(user);
+			//args.ip = GetClientIp(Request);
+			//HttpCookie aCookie = new HttpCookie("lastVisit");
+			//aCookie.Value = DateTime.Now.ToString();
+			//aCookie.Expires = DateTime.Now.AddDays(1);
+			//args.cookies = aCookie.Value;
+			//return Ok(user);
 		}
 
 		[HttpPost]
@@ -137,8 +98,15 @@ namespace Calender.Controllers
 					org_id = null
 				};
 
-				_db.user.Add(user);
-				ret = _db.TrySaveChanges();
+				try
+				{
+					_db.user.Add(user);
+					ret = _db.SaveChanges();
+				}
+				catch(Exception e)
+				{
+					str = e.Message;
+				}
 			});
 
 			return ret > 0 ? Ok(ob): Content(HttpStatusCode.InternalServerError, str);
@@ -148,8 +116,14 @@ namespace Calender.Controllers
 		public IHttpActionResult Token()
 		{
 			Token token = new Token();
-			JObject json = JObject.FromObject(new { antiForgeryToken = token.GenerateTokenWithId(10) }); ;
+			JObject json = JObject.FromObject(new { antiForgeryToken = token.GenerateTokenWithId(10, ModelUtil.GetClientIp(Request)) }); ;
 			return Ok(json);
+		}
+
+		[HttpPost]
+		public IHttpActionResult IsSignedIn()
+		{
+			return Ok("ok"); // already authorized before
 		}
 	}
 }

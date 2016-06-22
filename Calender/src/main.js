@@ -1,4 +1,7 @@
-﻿export function configure(aurelia) {
+﻿
+import Util from 'lib/util';
+
+export function configure(aurelia) {
 	aurelia.use
 		.standardConfiguration()
 		.developmentLogging()
@@ -12,5 +15,14 @@
 	
 	//aurelia.start().then(a => a.setRoot());
 	//aurelia.start().then(a => a.setRoot('pages/login'));
-	aurelia.start().then(a => a.setRoot('pages/signup'));
+	aurelia.start().then(a => 
+	{
+		Util.ajaxRequest({}, 'Login/IsSignedIn',
+			res => {
+				aurelia.setRoot('app');
+			},res => {
+				aurelia.setRoot('pages/account/login')
+			}
+		)
+	});
 }

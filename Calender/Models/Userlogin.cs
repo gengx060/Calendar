@@ -21,6 +21,7 @@ namespace Calender.Models
         public Nullable<System.DateTime> create_time { get; set; }
         public string cookie { get; set; }
         public string form { get; set; }
+        public string userIp { get; set; }
     
         public virtual User User { get; set; }
     }
