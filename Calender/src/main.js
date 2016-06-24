@@ -17,12 +17,12 @@ export function configure(aurelia) {
 	//aurelia.start().then(a => a.setRoot('pages/login'));
 	aurelia.start().then(a => 
 	{
-		Util.ajaxRequest({}, 'Login/IsSignedIn',
-			res => {
+		//Util.ajaxRequest({}, 'Login/IsSignedIn',
+		//	res => {
 				aurelia.setRoot('app');
-			},res => {
-				aurelia.setRoot('pages/account/login')
-			}
-		)
+		//	},res => {
+		//		aurelia.setRoot('pages/account/login')
+		//	}
+		//)
 	});
 }

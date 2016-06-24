@@ -55,6 +55,10 @@ export class Welcome {
 		console.log(this.element);
 	}
 	
+	//activate() {
+	//	BootstrapDialog.success('Goodbye data has been cleaned up !');
+	//};
+
 	get fullName() {
 		return `${this.firstName} ${this.lastName}`;
 	}
@@ -111,10 +115,18 @@ export class Welcome {
 				alert(1212);
 			}
 
-		});
+		}).then(()=>BootstrapDialog.success('hello'))
+		.then(()=>BootstrapDialog.success('hello1'))
+		.then(()=>BootstrapDialog.success('hello2'))
+		.then(()=>BootstrapDialog.success('hello3'))
 	}
 
 	attached(){
 		//this.myDialog.open();
 	}
+	
+	deactivate() {
+		//BootstrapDialog.success('Goodbye data has been cleaned up !');
+	};
+
 }

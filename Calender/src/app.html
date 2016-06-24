@@ -4,7 +4,7 @@
 	<require from="assets/css/toastr.css"></require>
 	<require from="assets/css/bootstrap-dialog.css"></require>
 
-	<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+	<nav style="margin-bottom:0px" class="navbar navbar-inverse" if.bind="router" role="navigation">
 		<div class="navbar-header">
 			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
 				<span class="sr-only">Toggle Navigation</span>
@@ -17,14 +17,24 @@
 				<span>${router.title}</span>
 			</a>
 		</div>
-
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav">
-				<li repeat.for="row of router.navigation" class="${row.isActive ? 'active' : ''}">
-					<a href.bind="row.href">${row.title}</a>
+				<li class=" ${route.settings.subMenu ? '' : 'dropdown' } " repeat.for="route of router.navigation">
+					<!-- if route has no submenu -->
+					<a href.bind="route.href" if.bind="!route.settings.subMenu">${route.title}</a>
+					<!-- if route has submenu -->
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown" if.bind="route.settings.subMenu">
+						${route.title} <span class="caret"></span>
+					</a>
+
+					<ul class="dropdown-menu" aria-labelledby="dropdownMenu2" if.bind="route.settings.subMenu">
+						<li repeat.for="menu of route.settings.subMenu" class="${menu.href ? '' : 'divider'}">
+							<a class="dropdown-item" href.bind="menu.href" if.bind="menu.href">${menu.title}</a>
+						</li>
+					</ul>
 				</li>
 			</ul>
-
+			<a href="#" class="navbar-right"><img style="max-width:40px;margin-top:5px" class="img-circle" src="src/assets/images/avatar_2x.png" /></a>
 			<ul class="nav navbar-nav navbar-right">
 				<li class="loader" if.bind="router.isNavigating">
 					<i class="fa fa-spinner fa-spin fa-2x"></i>
@@ -32,8 +42,6 @@
 			</ul>
 		</div>
 	</nav>
-
-	<div class="page-host">
-		<router-view></router-view>
-	</div>
+		
+	<router-view></router-view>
 </template>

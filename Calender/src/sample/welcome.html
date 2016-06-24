@@ -1,38 +1,76 @@
 <template>
+	<require from="sample/welcome.css"></require>
 	<section>
-		<h2>${heading}</h2>
-		<!--<require from="../util/datepicker"></require>-->
-		<!--<require from="../util/tags/panel1/panel"></require>-->
-		<require from="../util/tags/test"></require>
-		<form>
-			<div>
-				Hello, ${date1}!
-				<datepicker class='margin-top' date-value.bind="date1"> </datepicker>
-				<!--<bootstrap-datepicker value.bind="'mm-dd-yyyy'" dp-options.bind="date1" changedate.delegate="mychangedatefunction($event)"></bootstrap-datepicker>-->
+			<div class="row">
+				<div class="col-xs-2 sidebar">
+					<!--Sidebar content-->
+					<h4> hello</h4>
+					<h4> hello</h4>
+					<h4> hello</h4>
+					<h4> hello</h4>
+					<h4> hello</h4>
+				</div>
+				<div class="col-xs-10">
+					<div class="hero-unit">
+						<h1>Marketing stuff!</h1>
 
-				<label>First Name</label>
-				<input type="text" value.bind="firstName & debounce:2000">
+						<p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
+
+						<a href="#" class="btn btn-large btn-success">Get Started</a>
+					</div>
+					<h2>${heading}</h2>
+					<!--<require from="../util/datepicker"></require>-->
+					<!--<require from="../util/tags/panel1/panel"></require>-->
+					<require from="../util/tags/test"></require>
+					<form>
+						<div>
+							Hello, ${date1}!
+							<datepicker class='margin-top' date-value.bind="date1"> </datepicker>
+							<!--<bootstrap-datepicker value.bind="'mm-dd-yyyy'" dp-options.bind="date1" changedate.delegate="mychangedatefunction($event)"></bootstrap-datepicker>-->
+
+							<label>First Name</label>
+							<input type="text" value.bind="firstName & debounce:2000">
+						</div>
+						<div>
+							<label>Last Name</label>
+							<input type="text" value.bind="lastName">
+						</div>
+						<div>
+							<label>Full Name</label>
+							<p>${fullName+'12312'}</p>
+							<p text.bind="fullName"></p>
+						</div>
+						<button click.delegate="fun1()">test</button>
+						<button click.delegate="fun2()">123123</button>
+						<button click.delegate="fun3()">123123</button>
+
+						<!--<modal panel-title="${date1}" panel-number="${number}"> </modal>-->
+						<!--<modal> </modal>-->
+					</form>
+					<panel panel-title="${date1}" panel-number="${number}" panel-icon="fa-comments"> </panel>
+
+					<Test></Test>
+					<div ref="container"></div>
+
+					<div class="alert alert-warning alert-dismissible" role="alert">
+						<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<strong>Warning!</strong> Better check yourself, you're not looking too good.
+					</div>
+					<span style=" border: 1px solid #a5d24a;\
+					-moz-border-radius: 2px;\
+					-webkit-border-radius: 2px; width:70px;height:20px;\
+					display: block;\
+					float: left;\
+					padding: 5px;\
+					text-decoration: none;\
+					background: #cde69c;\
+					color: #638421;\
+					margin-right: 5px;\
+					margin-bottom: 5px;\
+					font-family: helvetica;\
+					font-size: 13px;">text<span class="pull-right">X</span></span>
+
+				</div>
 			</div>
-			<div>
-				<label>Last Name</label>
-				<input type="text" value.bind="lastName">
-			</div>
-			<div>
-				<label>Full Name</label>
-				<p>${fullName+'12312'}</p>
-				<p text.bind="fullName"></p>
-			</div>
-			<button click.delegate="fun1()">test</button>
-			<button click.delegate="fun2()">123123</button>
-			<button click.delegate="fun3()">123123</button>
-
-			<!--<modal panel-title="${date1}" panel-number="${number}"> </modal>-->
-
-			<!--<modal> </modal>-->
-		</form>
-		<panel panel-title="${date1}" panel-number="${number}" panel-icon="fa-comments"> </panel>
-
-		<Test></Test>
-		<div ref="container"></div>
 	</section>
 </template>

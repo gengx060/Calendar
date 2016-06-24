@@ -13,7 +13,11 @@ export class Login {
 	constructor(router, aurelia) {
 		this.router = router;
 		this.aurelia = aurelia;
-		//Util.checkLogin(this.aurelia);
+		Util.ajaxRequest({}, 'Login/IsSignedIn',
+			res => {
+				this.router.navigate("welcome");
+			} 
+		);
 	}
 
 	submit() {
