@@ -3,8 +3,7 @@
 	<require from="font-awesome/css/font-awesome.css"></require>
 	<require from="assets/css/toastr.css"></require>
 	<require from="assets/css/bootstrap-dialog.css"></require>
-
-	<nav style="margin-bottom:0px" class="navbar navbar-inverse" if.bind="router" role="navigation">
+	<nav style="margin-bottom:0px" class="navbar navbar-inverse" if.bind="router.routes" role="navigation">
 		<div class="navbar-header">
 			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
 				<span class="sr-only">Toggle Navigation</span>
@@ -34,14 +33,50 @@
 					</ul>
 				</li>
 			</ul>
-			<a href="#" class="navbar-right"><img style="max-width:40px;margin-top:5px" class="img-circle" src="src/assets/images/avatar_2x.png" /></a>
+
+			<!--<ul class="nav navbar-nav  navbar-right"-->
+			<ul class="navbar-right">
+				<li class="dropdown"> 
+					<!-- if route has submenu -->
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+						<img style="max-width:40px;margin-top:5px" class="img-circle" src="src/assets/images/avatar_2x.png" />
+					</a>
+
+					<ul style="min-width: 400px" class="dropdown-menu" aria-labelledby="dropdownMenu2">
+						<li> <a class="dropdown-item" href="#">Action</a> </li> 
+						<li> <a class="dropdown-item" href="#">Another action</a> </li> 
+						<li> 
+							<div class="list-group">
+								<span type="button" class="list-group-item">Cras justo odio</span>
+								<span type="button" class="list-group-item">Dapibus ac facilisis in</span>
+								<span type="button" class="list-group-item">Morbi leo risus</span>
+								<span type="button" class="list-group-item">Porta ac consectetur ac</span>
+								<span type="button" class="list-group-item">Vestibulum at eros</span>
+							</div>
+						 </li> 
+						<li><a href="#" click.delegate="logout()"><i class="fa fa-sign-out"></i> &nbsp; Log Out</a></li>
+					</ul>
+				</li>
+			</ul>
+			<!--<div class="dropdown">
+				<a href="#" class="dropdown-toggle navbar-right" data-toggle="dropdown"><img style="max-width:40px;margin-top:5px" class="img-circle" src="src/assets/images/avatar_2x.png" /></a>
+				<div class="dropdown-menu">
+					<a class="dropdown-item" href="#">Action</a>
+					<a class="dropdown-item" href="#">Another action</a>
+					<a class="dropdown-item" href="#">Something else here</a>
+				</div>
+			</div>-->
+
 			<ul class="nav navbar-nav navbar-right">
 				<li class="loader" if.bind="router.isNavigating">
 					<i class="fa fa-spinner fa-spin fa-2x"></i>
 				</li>
 			</ul>
-		</div>
+
+		 </div>
 	</nav>
-		
+
+	<!--<div>${router.moduleId}</div>
+	<div>${router}</div>-->
 	<router-view></router-view>
 </template>

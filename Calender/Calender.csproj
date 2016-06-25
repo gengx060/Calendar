@@ -3148,10 +3148,13 @@
     <Content Include="src\pages\account\login.css" />
     <Content Include="src\pages\account\login.html" />
     <Content Include="src\pages\account\login.js" />
+    <Content Include="src\pages\account\signout.html" />
     <Content Include="src\pages\account\signup.css" />
     <Content Include="src\pages\account\signup.html" />
     <Content Include="src\pages\account\signup.js" />
+    <Content Include="src\pages\account\singout.js" />
     <Content Include="src\pages\account\style.css" />
+    <Content Include="src\sample\welcome.css" />
     <Content Include="src\util\tags\datepicker.html" />
     <Content Include="src\util\tags\datepicker.js" />
     <Content Include="src\util\tags\index.js" />

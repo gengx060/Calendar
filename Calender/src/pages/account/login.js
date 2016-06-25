@@ -9,15 +9,12 @@ export class Login {
 	email = 's@s';
 	password = '12312313';
 	loading = false;
+	signupShow = false;
 
 	constructor(router, aurelia) {
 		this.router = router;
 		this.aurelia = aurelia;
-		Util.ajaxRequest({}, 'Login/IsSignedIn',
-			res => {
-				this.router.navigate("welcome");
-			} 
-		);
+		//Util.checkLogin();
 	}
 
 	submit() {
@@ -32,6 +29,7 @@ export class Login {
 				let p = $.parseJSON(res)
 				sessionStorage.setItem("antiForgeryToken", p.antiForgeryToken);
 				this.aurelia.setRoot('app');
+				Util.CurrentApp = 'app';
 			},res => {
 				console.log(res);
 			},res => {
@@ -41,7 +39,8 @@ export class Login {
 	}
 	
 	register(){
+		this.signupShow = !this.signupShow;
 		//this.router.navigate("signup");
-		this.aurelia.setRoot('pages/signup')
+		//this.aurelia.setRoot('pages/signup')
 	}
 }

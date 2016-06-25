@@ -1,12 +1,13 @@
 ﻿import BootstrapDialog from 'lib/bootstrap-dialog';
-import {Aurelia, inject} from 'aurelia-framework';
+import {Aurelia, customElement, inject, bindable, bindingMode} from 'aurelia-framework';
 import {Router} from 'aurelia-router';
 import Util from 'lib/util';
 import toastr  from 'lib/toastr'
 
+//@customElement('signup')
 @inject(Router, Aurelia)
 export class Signup {
-	
+	@bindable signupShow = true;
 	email = 's@s';
 	password1 = '12312313';
 	password2 = '12312313';
@@ -20,7 +21,8 @@ export class Signup {
 	}
 	
 	loginPage() {
-		setTimeout(()=>this.aurelia.setRoot('pages/login'), 500);
+		//setTimeout(()=>Util.Router.navigate('login'), 500);
+		this.signupShow = !this.signupShow;
 	}
 
 	submit1() {
@@ -45,7 +47,8 @@ export class Signup {
 			res => { 
 				toastr.success("redirect to Login page!");
 				self.loading = false;
-				setTimeout(()=>this.aurelia.setRoot('pages/login'), 500);
+				//setTimeout(()=>this.aurelia.setRoot('pages/login'), 500);
+				this.signupShow = !this.signupShow;
 			},res => {
 				let p = $.parseJSON(res.responseText)
 				BootstrapDialog.alert(res.responseText);

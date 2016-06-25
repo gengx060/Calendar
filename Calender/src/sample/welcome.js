@@ -4,7 +4,7 @@ import {inject, bindable} from 'aurelia-framework';
 import {ViewFactory} from 'lib/view-factory';
 import $ from 'bootstrap';
 import BootstrapDialog from 'lib/bootstrap-dialog';
-
+//import {Compiler} from 'gooy/aurelia-compiler';
 
 //let httpClient1 = ViewFactory();
 
@@ -17,40 +17,16 @@ import Util from 'lib/util';
 //@inject(Element)
 @inject(Element, ViewFactory)
 export class Welcome {
-	viewHtml =
-  `<template>
-	<div class="modal show" role="dialog">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" click.delegate="toggle()">&times;</button>
-					<h4 class="modal-title">Modal Header</h4>
-				</div>
-				<div class="modal-body">
-					<p>\${message}.</p>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-danger" click.delegate="toggle()">Close</button>
-				</div>
-			</div>
-		</div>
-	</div>
-</template>`;
-
-	viewModelJs = 
-  `{ 
-  message: 'hello world',
-}`;
 	//static inject = [DialogService];
 	heading = 'Welcome to Aurelia!';
 	firstName = 'John';
 	lastName = 'Doe';
 	date1 = '10/26/2013';
 	number = 121
-
+	//static inject = [Element,Compiler]
 	constructor(element, viewFactory) {
 		this.element = element;
-		this.viewFactory = viewFactory
+		this.viewFactory = viewFactory;
 		//this.dialogService = dialogService;
 		console.log(this.element);
 	}
@@ -108,17 +84,58 @@ export class Welcome {
 	 
 	
 	fun3() {
-		BootstrapDialog.confirm('I want banana!', function(res) {
-			if(res) {
-				console.log(res);
-			} else {
-				alert(1212);
-			}
+		let viewHtml = `<template>
+					
+				<div class="modal" id="genericModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="false">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" click.delegate="toggle()">&times;</button>
+								<h4 class="modal-title">\${message}</h4>
+							</div>
+							<div class="modal-body">
+								<p>Some modal.</p>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-danger" click.delegate="toggle()">Close</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				</template>`;
+		//let viewHtml = `<template>
+		//		<h1>\${message}</h1>
+		//		<button click.delegate="fun1()">\$\{message\}</button>
+		//	</template>`
+		let viewModel = null;
+		this.remove();
+		self = this;
+		let viewModelJs = { 
+			  message: 'hello world',
+			  toggle: function(){
+			  	//$(self.embed).removeClass("show");
+			  	$('div.modal').removeClass("show");
+				//alert(1);
+			  }
+			};
+		//eval('viewModel = ' + viewModelJs);
+		this.embed = this.viewFactory.insert(this.element, viewHtml, viewModelJs);
+		$('div.modal').addClass("show");
+		//$('div.modal').removeClass("modal-backdrop");
+		
+		//BootstrapDialog.confirm('I want banana!', function(res) {
+		//	if(res) {
+		//		console.log(res);
+		//	} else {
+		//		alert(1212);
+		//	}
 
-		}).then(()=>BootstrapDialog.success('hello'))
-		.then(()=>BootstrapDialog.success('hello1'))
-		.then(()=>BootstrapDialog.success('hello2'))
-		.then(()=>BootstrapDialog.success('hello3'))
+	}
+	remove() {
+		if (this.embed) {
+			this.embed.dispose();
+			this.embed = null;
+		}
 	}
 
 	attached(){

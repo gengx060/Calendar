@@ -14,15 +14,26 @@ export function configure(aurelia) {
 	//.plugin('./resources/index');
 	
 	//aurelia.start().then(a => a.setRoot());
-	//aurelia.start().then(a => a.setRoot('pages/login'));
-	aurelia.start().then(a => 
-	{
-		//Util.ajaxRequest({}, 'Login/IsSignedIn',
-		//	res => {
-				aurelia.setRoot('app');
-		//	},res => {
-		//		aurelia.setRoot('pages/account/login')
-		//	}
-		//)
+	aurelia.start().then(a =>  {
+		Util.Aurelia = a;
+		Util.ajaxRequest({}, 'Login/IsSignedIn',
+			res => {
+				Util.Aurelia.setRoot('app');
+			},res => {
+				//Util.Aurelia.setRoot('pages/account/login') // already handled in final
+			}
+		)
 	});
+	//a.setRoot('pages/login'));
+	//aurelia.start().then(a => 
+	//{
+	//	//Util.ajaxRequest({}, 'Login/IsSignedIn',
+	//	//	res => {
+	//	aurelia.setRoot('app');
+	//	Util.Aurelia = aurelia;
+	//	//	},res => {
+	//	//		aurelia.setRoot('pages/account/login')
+	//	//	}
+	//	//)
+	//});
 }

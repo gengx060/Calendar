@@ -13,18 +13,29 @@ export class ViewFactory {
 		this.viewCompiler = viewCompiler;
 		this.resources = resources;
 		this.container = container;
+		this.view = null;;
+		this.viewSlot = null;
+		this.viewFactory = null;
 	}
 
 	insert(containerElement, html, viewModel) {
-		let viewFactory = this.viewCompiler.compile(html);
-		let view = viewFactory.create(this.container);
+		this.viewFactory = this.viewCompiler.compile(html);
+		let view = this.viewFactory.create(this.container);
 		let anchorIsContainer = true;
 		let viewSlot = new ViewSlot(containerElement, anchorIsContainer);
 		viewSlot.add(view);
 		view.bind(viewModel, createOverrideContext(viewModel));
+		this.view = view;
+		this.viewSlot = viewSlot;
+		return this;
 		return () => {
 			viewSlot.remove(view);
 			view.unbind();
 		};
+	}
+
+	dispose() {
+		this.viewSlot.remove(this.view);
+		this.view.unbind();
 	}
 }

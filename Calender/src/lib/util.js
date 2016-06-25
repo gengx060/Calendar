@@ -1,10 +1,11 @@
 ﻿
 import $ from 'jquery';
 import toastr from 'lib/toastr';
+import BootstrapDialog from 'lib/bootstrap-dialog';
+import {Aurelia, inject} from 'aurelia-framework';
 
 //@inject(HttpClient)
 const cookieNmae = 'mecookie';
-
 export class Util {
 	
 	constructor() {
@@ -26,23 +27,50 @@ export class Util {
 			context: this,
 			success: success, 
 			error : error,
-			complete:complete
+			complete:function(res) {
+				if (complete) {
+					complete(res);
+				}
+				if(res.statusText == 'Unauthorized') {
+					//if(Util.CurrentApp != 'login') {
+					Util.Aurelia.setRoot('pages/account/login');
+						//Util.CurrentApp = 'login';
+					//}
+				}
+			}
 		};
 
 		$.ajax(options);
 	}
 
-	static checkLogin(aurelia) {
-		Util.ajaxRequest({}, 'Login/IsSignedIn',
-			res => {
-				aurelia.setRoot('app');
-			},res => {
+	//static checkLogin() {
+	//	Util.ajaxRequest({}, 'Login/IsSignedIn',
+	//		res => {
+	//			//if(Util.CurrentApp == 'login') {
+	//				Util.Aurelia.setRoot('app');
+	//			//}
+	//		},res => {
+	//			console.log(res);
+	//		},res => {
+	//			self.loading = false;
+	//		}
+	//	)
+	//}
+
+	
+	static logout() {
+		BootstrapDialog.confirm('Log out?', function(res) {
+			if(res) {
+				sessionStorage.setItem("antiForgeryToken", '');
+				Util.Aurelia.setRoot('pages/account/login');
+				//Util.CurrentApp = 'login';
+				//Util.Router.navigate("");
+			} else {
 				console.log(res);
-			},res => {
-				self.loading = false;
 			}
-		)
+		});
 	}
+
 	//static createCookie(value, days) {
 	//	let expires = '';
 
@@ -70,4 +98,7 @@ export class Util {
 	//	createCookie(cookieNmae, "", -1);
 	//}
 }
+Util.Aurelia = null;
+Util.Router = null;
+Util.CurrentApp = null;
 export default Util;
