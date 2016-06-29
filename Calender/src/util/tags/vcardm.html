@@ -1,0 +1,40 @@
+﻿<template>
+	<style>
+		.dropdown-menu:before {
+  position: absolute;
+  top: -7px;
+  left: 9px;
+  display: inline-block;
+  border-right: 7px solid transparent;
+  border-bottom: 7px solid #ccc;
+  border-left: 7px solid transparent;
+  border-bottom-color: rgba(0, 0, 0, 0.2);
+  content: '';
+}
+
+.dropdown-menu:after {
+  position: absolute;
+  top: -6px;
+  left: 10px;
+  display: inline-block;
+  border-right: 6px solid transparent;
+  border-bottom: 6px solid #ffffff;
+  border-left: 6px solid transparent;
+  content: '';
+}
+	</style>
+
+	<div class="dropdown">
+		<a href="#" data-placement="${position?position:'right'}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+			<!--<span class="glyphicon glyphicon-search" style="margin:3px 0 0 0"></span>-->
+			<img style="max-width:25px;" src="src/assets/images/avatar_2x.png" alt="sfe" class="img-circle" />
+		</a>
+		<div class="dropdown-menu dropdown-menu-top" aria-labelledby="dropdownMenu1">
+			<li><a href="#">Action</a></li>
+			<li><a href="#">Another action</a></li>
+			<li><a href="#">Something else here</a></li>
+			<li role="separator" class="divider"></li>
+			<li><a href="#">Separated link</a></li>
+		</div>
+	</div>
+</template>

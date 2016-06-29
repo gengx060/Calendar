@@ -1,8 +1,59 @@
 ﻿<template>
 	<require from="bootstrap/css/bootstrap.css"></require>
 	<require from="font-awesome/css/font-awesome.css"></require>
-	<require from="pages/account/signup.css"></require>
 	<div if.bind="signupShow" class="container col-md-6 col-md-offset-3  col-lg-4 col-lg-offset-4">
+	<style>
+		.form-box {
+	margin-top: 40px;
+}
+
+.form-top {
+	overflow: hidden;
+	padding: 0 25px 15px 25px;
+	background: #f3f3f3;
+	-moz-border-radius: 4px 4px 0 0; -webkit-border-radius: 4px 4px 0 0; border-radius: 4px 4px 0 0;
+	text-align: left;
+}
+
+.form-top-left {
+	float: left;
+	width: 75%;
+	padding-top: 25px;
+}
+
+.form-top-left h3 { margin-top: 0; }
+
+.form-top-right {
+	float: left;
+	width: 25%;
+	padding-top: 5px;
+	font-size: 66px;
+	color: #ddd;
+	line-height: 100px;
+	text-align: right;
+}
+
+.form-bottom {
+	padding: 25px 25px 30px 25px;
+	background: #eee;
+	text-align: left;
+}
+
+input[type="text"], 
+input[type="password"], 
+input[type="email"],
+textarea, 
+textarea.form-control {
+	height: 50px;
+	font-size: 16px;
+	/*border: 1px solid #ddd;*/
+}
+
+button.btn {
+	height: 50px;
+	font-size: 16px;
+}
+	</style>
 	<!--<div class="container">-->
 		<div class="form-box ">
 			<div class="form-top">

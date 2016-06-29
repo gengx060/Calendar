@@ -53,31 +53,31 @@ namespace Calender.Controllers
 
 
 		[HttpPost]
-		public IHttpActionResult Login([FromBody]JObject json)
+		public async Task<IHttpActionResult> Login([FromBody]JObject json)
 		{
 			dynamic args = json;
 			//Session["test"] = "";
-			HttpContext.Current.Session["test"] = "";
-			string email = args.email;
-			string password = args.password.ToString();
-			var user = _db.user.FirstOrDefault(o => o.email == email);
+			//HttpContext.Current.Session["test"] = "";
+			IHttpActionResult res =  await Task.Run<IHttpActionResult>(() => {
 
-			if (Encryption.CompareHashFromPassword(user.password.ToString(), password))
-			{
-				Token token = new Token();
-				JObject json1 = JObject.FromObject(new { antiForgeryToken = token.GenerateTokenWithId(10, ModelUtil.GetClientIp(Request)) }); ;
-				return Ok(json1);
-			}
-			else
-			{
-				return Content(HttpStatusCode.Forbidden, "Wrong username and password!");
-			}
-			//args.ip = GetClientIp(Request);
-			//HttpCookie aCookie = new HttpCookie("lastVisit");
-			//aCookie.Value = DateTime.Now.ToString();
-			//aCookie.Expires = DateTime.Now.AddDays(1);
-			//args.cookies = aCookie.Value;
-			//return Ok(user);
+				string email = args.email;
+				string password = args.password.ToString();
+				var user = _db.user.FirstOrDefault(o => o.email == email);
+
+				if (Encryption.CompareHashFromPassword(user.password.ToString(), password))
+				{
+					Token token = new Token();
+					JObject json1 = JObject.FromObject(new { antiForgeryToken = token.GenerateTokenWithId(10, ModelUtil.GetClientIp(Request)) }); ;
+					return Ok(json1);
+				}
+				else
+				{
+					return Content(HttpStatusCode.Forbidden, "Wrong username and password!");
+				}
+			});
+
+			return res;
+
 		}
 
 		[HttpPost]
@@ -116,7 +116,12 @@ namespace Calender.Controllers
 		public IHttpActionResult Token()
 		{
 			Token token = new Token();
-			JObject json = JObject.FromObject(new { antiForgeryToken = token.GenerateTokenWithId(10, ModelUtil.GetClientIp(Request)) }); ;
+
+			JObject json = null;
+			Task.Run(() =>
+			{
+				JObject.FromObject(new { antiForgeryToken = token.GenerateTokenWithId(10, ModelUtil.GetClientIp(Request)) }); ;
+			});
 			return Ok(json);
 		}
 

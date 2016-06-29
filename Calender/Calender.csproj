@@ -222,6 +222,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\ContactsController.cs" />
     <Compile Include="Models\GGMysql.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -3176,6 +3177,10 @@
     <Content Include="src\util\tags\products.js" />
     <Content Include="src\util\tags\test.js" />
     <Content Include="src\lib\util.js" />
+    <Content Include="src\util\tags\vcard.html" />
+    <Content Include="src\util\tags\vcard.js" />
+    <Content Include="src\util\tags\vcardm.html" />
+    <Content Include="src\util\tags\vcardm.js" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
     <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />

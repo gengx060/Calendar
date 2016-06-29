@@ -22,7 +22,16 @@ export class Welcome {
 	firstName = 'John';
 	lastName = 'Doe';
 	date1 = '10/26/2013';
-	number = 121
+	number = 121;
+
+	contacts = [{name:'hongyu li', img:'1', email:'i@1.com'},
+				{name:'hongyu li', img:'2', email:'i@1.com'},
+				{name:'hongyu li', img:'default', email:'i@1.com'},
+				{name:'hongyu li', img:'default', email:'i@1.com'},
+				{name:'hongyu li', img:'default', email:'i@1.com'},
+				{name:'hongyu li', img:'default', email:'i@1.com'},
+				{name:'hongyu li', img:'default', email:'i@1.com'}]
+
 	//static inject = [Element,Compiler]
 	constructor(element, viewFactory) {
 		this.element = element;
@@ -37,6 +46,17 @@ export class Welcome {
 
 	get fullName() {
 		return `${this.firstName} ${this.lastName}`;
+	}
+	
+	loadContacts() {
+		Util.ajaxRequest({}, 'Contacts/GetContacts',
+			res => {
+				let p = $.parseJSON(res)
+				console.log(res);
+			},res => {
+				console.log(res);
+			}
+		);
 	}
 
 	fun1() {

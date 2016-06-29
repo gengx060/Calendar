@@ -1,3 +1,3 @@
 ﻿export function configure(config) {
-	config.globalResources('./panel', './modal', './products', './datepicker');
+	config.globalResources('./panel', './modal', './products', './datepicker', './vcard', './vcardm');
 }
