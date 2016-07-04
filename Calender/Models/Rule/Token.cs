@@ -14,7 +14,8 @@ namespace Calender.Models.Rule
 		{
 			var cookie = string.Empty;
 			var form = string.Empty;
-			AntiForgery.GetTokens(null, out cookie, out form);
+			//AntiForgery.GetTokens(null, out cookie, out form);
+			cookie = GGEncrypt.Encryption.GenerateToken();
 			Userlogin login = new Userlogin()
 			{
 				userid = userId,

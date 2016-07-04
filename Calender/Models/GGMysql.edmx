@@ -10,12 +10,14 @@
             <PropertyRef Name="iduser" />
           </Key>
           <Property Name="iduser" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="username" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="username" Type="varchar" MaxLength="255" />
           <Property Name="firstname" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="lastname" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="email" Type="varchar" MaxLength="45" />
-          <Property Name="password" Type="varchar" MaxLength="512" Nullable="false" />
+          <Property Name="password" Type="varchar" MaxLength="512" />
           <Property Name="org_id" Type="int" />
+          <Property Name="dob" Type="datetime" Precision="0" />
+          <Property Name="gender" Type="varchar" MaxLength="1" />
         </EntityType>
         <EntityType Name="userlogin">
           <Key>
@@ -30,6 +32,22 @@
           <Property Name="form" Type="varchar" MaxLength="512" />
           <Property Name="userIp" Type="varchar" MaxLength="45" />
         </EntityType>
+        <EntityType Name="userprofile">
+          <Key>
+            <PropertyRef Name="iduserprofile" />
+          </Key>
+          <Property Name="iduserprofile" Type="int" Nullable="false" />
+          <Property Name="userid" Type="int" Nullable="false" />
+          <Property Name="address1" Type="varchar" MaxLength="200" />
+          <Property Name="address2" Type="varchar" MaxLength="200" />
+          <Property Name="city" Type="varchar" MaxLength="45" />
+          <Property Name="state" Type="varchar" MaxLength="45" />
+          <Property Name="country" Type="varchar" MaxLength="45" />
+          <Property Name="zipcode" Type="varchar" MaxLength="45" />
+          <Property Name="cellphone" Type="varchar" MaxLength="45" />
+          <Property Name="homephone" Type="varchar" MaxLength="45" />
+          <Property Name="workphone" Type="varchar" MaxLength="45" />
+        </EntityType>
         <Association Name="USERID">
           <End Role="user" Type="Self.user" Multiplicity="1" />
           <End Role="userlogin" Type="Self.userlogin" Multiplicity="*" />
@@ -42,12 +60,29 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="USERPROFILEUSERID">
+          <End Role="user" Type="Self.user" Multiplicity="1" />
+          <End Role="userprofile" Type="Self.userprofile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="iduser" />
+            </Principal>
+            <Dependent Role="userprofile">
+              <PropertyRef Name="userid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="ggModelStoreContainer">
           <EntitySet Name="user" EntityType="Self.user" Schema="gg" store:Type="Tables" />
           <EntitySet Name="userlogin" EntityType="Self.userlogin" Schema="gg" store:Type="Tables" />
+          <EntitySet Name="userprofile" EntityType="Self.userprofile" Schema="gg" store:Type="Tables" />
           <AssociationSet Name="USERID" Association="Self.USERID">
             <End Role="user" EntitySet="user" />
             <End Role="userlogin" EntitySet="userlogin" />
+          </AssociationSet>
+          <AssociationSet Name="USERPROFILEUSERID" Association="Self.USERPROFILEUSERID">
+            <End Role="user" EntitySet="user" />
+            <End Role="userprofile" EntitySet="userprofile" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -66,6 +101,9 @@
           <Property Name="password" Type="String" MaxLength="512" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="org_id" Type="Int32" />
           <NavigationProperty Name="Userlogin" Relationship="Self.USERID" FromRole="user" ToRole="userlogin" />
+          <NavigationProperty Name="userprofile" Relationship="ggModel.USERPROFILEUSERID" FromRole="User" ToRole="userprofile" />
+          <Property Name="dob" Type="DateTime" />
+          <Property Name="gender" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Userlogin">
           <Key>
@@ -100,7 +138,41 @@
             <End Role="user" EntitySet="user" />
             <End Role="userlogin" EntitySet="userlogin" />
           </AssociationSet>
+          <EntitySet Name="userprofile" EntityType="ggModel.Userprofile" />
+          <AssociationSet Name="USERPROFILEUSERID" Association="ggModel.USERPROFILEUSERID">
+            <End Role="User" EntitySet="user" />
+            <End Role="userprofile" EntitySet="userprofile" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="Userprofile">
+          <Key>
+            <PropertyRef Name="iduserprofile" />
+          </Key>
+          <Property Name="iduserprofile" Type="Int32" Nullable="false" />
+          <Property Name="userid" Type="Int32" />
+          <Property Name="address1" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="address2" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="city" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="state" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="country" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="zipcode" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="user" Relationship="ggModel.USERPROFILEUSERID" FromRole="userprofile" ToRole="User" />
+          <Property Name="cellphone" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="homephone" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="workphone" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="USERPROFILEUSERID">
+          <End Type="ggModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="ggModel.Userprofile" Role="userprofile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="iduser" />
+            </Principal>
+            <Dependent Role="userprofile">
+              <PropertyRef Name="userid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -110,6 +182,8 @@
           <EntitySetMapping Name="user">
             <EntityTypeMapping TypeName="ggModel.User">
               <MappingFragment StoreEntitySet="user">
+                <ScalarProperty Name="gender" ColumnName="gender" />
+                <ScalarProperty Name="dob" ColumnName="dob" />
                 <ScalarProperty Name="iduser" ColumnName="iduser" />
                 <ScalarProperty Name="username" ColumnName="username" />
                 <ScalarProperty Name="firstname" ColumnName="firstname" />
@@ -131,6 +205,23 @@
                 <ScalarProperty Name="encryptkey" ColumnName="encryptkey" />
                 <ScalarProperty Name="encryptvalue" ColumnName="encryptvalue" />
                 <ScalarProperty Name="create_time" ColumnName="create_time" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="userprofile">
+            <EntityTypeMapping TypeName="ggModel.Userprofile">
+              <MappingFragment StoreEntitySet="userprofile">
+                <ScalarProperty Name="workphone" ColumnName="workphone" />
+                <ScalarProperty Name="homephone" ColumnName="homephone" />
+                <ScalarProperty Name="cellphone" ColumnName="cellphone" />
+                <ScalarProperty Name="zipcode" ColumnName="zipcode" />
+                <ScalarProperty Name="country" ColumnName="country" />
+                <ScalarProperty Name="state" ColumnName="state" />
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="address2" ColumnName="address2" />
+                <ScalarProperty Name="address1" ColumnName="address1" />
+                <ScalarProperty Name="userid" ColumnName="userid" />
+                <ScalarProperty Name="iduserprofile" ColumnName="iduserprofile" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

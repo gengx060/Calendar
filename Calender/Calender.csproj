@@ -245,6 +245,9 @@
     <Compile Include="Models\Userlogin.cs">
       <DependentUpon>GGMysql.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Userprofile.cs">
+      <DependentUpon>GGMysql.tt</DependentUpon>
+    </Compile>
     <Compile Include="Providers\AntiForgeryHandler.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -3155,6 +3158,8 @@
     <Content Include="src\pages\account\signup.js" />
     <Content Include="src\pages\account\singout.js" />
     <Content Include="src\pages\account\style.css" />
+    <Content Include="src\pages\user\edit.html" />
+    <Content Include="src\pages\user\edit.js" />
     <Content Include="src\sample\welcome.css" />
     <Content Include="src\util\tags\datepicker.html" />
     <Content Include="src\util\tags\datepicker.js" />

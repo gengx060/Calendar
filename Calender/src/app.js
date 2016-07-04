@@ -3,7 +3,7 @@ import Util from 'lib/util';
 export class App {
 	configureRouter(config, router) {
 		config.title = 'GG';
-		
+		config.options.pushState = true;
 		config.map([
 				//{
 				//	route:['', 'login'],

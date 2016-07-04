@@ -27,5 +27,6 @@ namespace Calender.Models
     
         public virtual DbSet<User> user { get; set; }
         public virtual DbSet<Userlogin> userlogin { get; set; }
+        public virtual DbSet<Userprofile> userprofile { get; set; }
     }
 }

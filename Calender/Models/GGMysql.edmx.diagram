@@ -8,6 +8,8 @@
         <EntityTypeShape EntityType="ggModel.User" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
         <EntityTypeShape EntityType="ggModel.Userlogin" Width="1.5" PointX="3" PointY="1.125" IsExpanded="true" />
         <AssociationConnector Association="ggModel.USERID" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="ggModel.Userprofile" Width="1.5" PointX="3" PointY="4.375" />
+        <AssociationConnector Association="ggModel.USERPROFILEUSERID" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

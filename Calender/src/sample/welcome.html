@@ -1,5 +1,6 @@
 <template>
-	<require from="sample/welcome.css"></require>
+	<!--<require from="sample/welcome.css"></require>-->
+	<require from="pages/user/edit"></require>
 	<section>
 			<div class="row">
 				<div class="col-xs-2 sidebar">
@@ -10,18 +11,24 @@
 					<h4> hello</h4>
 					<h4> hello</h4>
 				</div>
-				<div class="col-xs-10">
-					<div class="hero-unit">
+				<div style="margin-top:5px" class="col-xs-10">
+					<!--<div class="hero-unit">
 						<h1>Marketing stuff!</h1>
 
 						<p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
 
 						<a href="#" class="btn btn-large btn-success">Get Started</a>
 					</div>
-					<h2>${heading}</h2>
+					<h2>${heading}</h2>-->
 					<!--<require from="../util/datepicker"></require>-->
 					<!--<require from="../util/tags/panel1/panel"></require>-->
 					<!--<require from="../util/tags/test"></require>-->
+					<!--<button style="width:120px;margin-bottom:5px" class="btn btn-primary pull-right">New contact</button>-->
+					<a style="width:120px;margin-bottom:5px" class="btn btn-primary pull-right" route-href="route: welcome;
+                                   params.bind: {id1:123123}">
+						New contact
+					</a>
+
 					<table class="table table-striped table-condensed table-hover text-nowrap">
 						<thead> <tr> <th>#</th> <th class="text-nowrap">Name</th> <th>email</th> <th>email</th> </tr> </thead>
 						<tbody>
@@ -71,9 +78,9 @@
 							<p>${fullName+'12312'}</p>
 							<p text.bind="fullName"></p>
 						</div>
-						<button click.delegate="fun1()">test</button>
-						<button click.delegate="fun2()">123123</button>
-						<button click.delegate="fun3()">123123</button>
+						<button class="btn btn-primary " click.delegate="fun1()">test</button>
+						<button class="btn btn-primary "  click.delegate="fun2()">123123</button>
+						<button class="btn btn-primary "  click.delegate="fun3()">123123</button>
 
 						<!--<modal panel-title="${date1}" panel-number="${number}"> </modal>-->
 						<!--<modal> </modal>-->
@@ -87,7 +94,8 @@
 						<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 						<strong>Warning!</strong> Better check yourself, you're not looking too good.
 					</div>
-					<vcard position="top"></vcard>
+					<edit panel-if="${number}"></edit>
+
 					<!--<vcard></vcard>-->
 					<!--<vcardm></vcardm>-->
 

@@ -4,16 +4,14 @@ import {inject, bindable} from 'aurelia-framework';
 import {ViewFactory} from 'lib/view-factory';
 import $ from 'bootstrap';
 import BootstrapDialog from 'lib/bootstrap-dialog';
-//import {Compiler} from 'gooy/aurelia-compiler';
 
-//let httpClient1 = ViewFactory();
+import template1 from "pages/user/edit.html!text";
+import template1js from "pages/user/edit.js!text";
+
 
 let httpClient = new HttpClient();
-//import $ from 'jquery';
 import Util from 'lib/util';
-//import {Modal} from 'util/tags/modal';
 
-//$(".date-picker").datepicker();s
 //@inject(Element)
 @inject(Element, ViewFactory)
 export class Welcome {
@@ -38,6 +36,7 @@ export class Welcome {
 		this.viewFactory = viewFactory;
 		//this.dialogService = dialogService;
 		console.log(this.element);
+		//debugger;
 	}
 	
 	//activate() {
@@ -89,9 +88,7 @@ export class Welcome {
 					dialogRef.enableButtons(false);
 					dialogRef.setClosable(false);
 					dialogRef.getModalBody().html('Dialog closes in 5 seconds.');
-					setTimeout(function(){
-						dialogRef.close();
-					}, 5000);
+					setTimeout(() => dialogRef.close(), 5000);
 				}
 			}, {
 				label: 'Close',
@@ -104,43 +101,28 @@ export class Welcome {
 	 
 	
 	fun3() {
-		let viewHtml = `<template>
-					
-				<div class="modal" id="genericModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="false">
-					<div class="modal-dialog">
-						<div class="modal-content">
-							<div class="modal-header">
-								<button type="button" class="close" click.delegate="toggle()">&times;</button>
-								<h4 class="modal-title">\${message}</h4>
-							</div>
-							<div class="modal-body">
-								<p>Some modal.</p>
-							</div>
-							<div class="modal-footer">
-								<button type="button" class="btn btn-danger" click.delegate="toggle()">Close</button>
-							</div>
-						</div>
-					</div>
-				</div>
-				</template>`;
-		//let viewHtml = `<template>
-		//		<h1>\${message}</h1>
-		//		<button click.delegate="fun1()">\$\{message\}</button>
-		//	</template>`
-		let viewModel = null;
-		this.remove();
-		self = this;
-		let viewModelJs = { 
-			  message: 'hello world',
-			  toggle: function(){
-			  	//$(self.embed).removeClass("show");
-			  	$('div.modal').removeClass("show");
-				//alert(1);
-			  }
-			};
+		let viewHtml = template1;
+		let viewModelJs = template1js;
+		//debugger
+		//return;
+		////let viewHtml = `<template>
+		////		<h1>\${message}</h1>
+		////		<button click.delegate="fun1()">\$\{message\}</button>
+		////	</template>`
+		//let viewModel = null;
+		//this.remove();
+		//self = this;
+		//let viewModelJs = { 
+		//	  message: 'hello world',
+		//	  toggle: function(){
+		//	  	//$(self.embed).removeClass("show");
+		//	  	$('div.modal').removeClass("show");
+		//		//alert(1);
+		//	  }
+		//	};
 		//eval('viewModel = ' + viewModelJs);
 		this.embed = this.viewFactory.insert(this.element, viewHtml, viewModelJs);
-		$('div.modal').addClass("show");
+		//$('div.modal').addClass("show");
 		//$('div.modal').removeClass("modal-backdrop");
 		
 		//BootstrapDialog.confirm('I want banana!', function(res) {
@@ -157,11 +139,19 @@ export class Welcome {
 			this.embed = null;
 		}
 	}
+	
+	activate(params) {
+		debugger;
+	}
 
 	attached(){
+		//debugger;
 		//this.myDialog.open();
 	}
 	
+	determineActivationStrategy(params){
+		debugger;
+	}
 	deactivate() {
 		//BootstrapDialog.success('Goodbye data has been cleaned up !');
 	};

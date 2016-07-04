@@ -42,21 +42,6 @@ export class Util {
 
 		$.ajax(options);
 	}
-
-	//static checkLogin() {
-	//	Util.ajaxRequest({}, 'Login/IsSignedIn',
-	//		res => {
-	//			//if(Util.CurrentApp == 'login') {
-	//				Util.Aurelia.setRoot('app');
-	//			//}
-	//		},res => {
-	//			console.log(res);
-	//		},res => {
-	//			self.loading = false;
-	//		}
-	//	)
-	//}
-
 	
 	static logout() {
 		BootstrapDialog.confirm('Log out?', function(res) {
@@ -71,33 +56,106 @@ export class Util {
 		});
 	}
 
-	//static createCookie(value, days) {
-	//	let expires = '';
+	static createObservables(jsonObj, self) {
 
-	//	if (days) {
-	//		var date = new Date();
-	//		date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-	//		expires = "; expires=" + date.toGMTString();
-	//	}
+		jsonObj.observables && jsonObj.observables.forEach(function(it) {
+			eval('self.'+it+' = null');
+		});
 
-	//	document.cookie = encodeURIComponent(cookieNmae) + "=" + encodeURIComponent(value) + expires + "; path=/";
-	//}
+		jsonObj.observableArrays && jsonObj.observableArrays.forEach(function(it) {
+			eval('self.'+it+' = []');
+		});
 
-	//static readCookie() {
-	//	var nameEQ = encodeURIComponent(cookieNmae) + "=";
-	//	var ca = document.cookie.split(';');
-	//	for (var i = 0; i < ca.length; i++) {
-	//		var c = ca[i];
-	//		while (c.charAt(0) === ' ') c = c.substring(1, c.length);
-	//		if (c.indexOf(nameEQ) === 0) return decodeURIComponent(c.substring(nameEQ.length, c.length));
-	//	}
-	//	return null;
-	//}
+		jsonObj.observablesE && jsonObj.observablesE.forEach(function(it) {
+			eval('self.'+it+' = null');
+			eval('self.'+it+'E = false');
+		});
+	}
 
-	//eraseCookie() {
-	//	createCookie(cookieNmae, "", -1);
-	//}
+	
 }
+
+class Validation {
+	static nonempty() {
+		return /([^\s])/;
+	}
+
+	static validate(self, prop, rule) {
+		
+		if(eval('self.'+prop+'==null') ) {
+			eval('self.'+prop+'E = true');
+			return;
+		}
+
+		if( rule.test(eval('self.'+prop)) ) {
+			eval('self.'+prop+'E = false');
+		} else {
+			eval('self.'+prop+'E = true');
+		}
+	}
+}
+
+Util.Validation = Validation;
+
+class Loc{
+	static states() {
+		return [
+			'Alabama',
+			'Alaska',
+			'Arizona',
+			'Arkansas',
+			'California',
+			'Colorado',
+			'Connecticut',
+			'Delaware',
+			'District of Columbia',
+			'Florida',
+			'Georgia',
+			'Hawaii',
+			'Idaho',
+			'Illinois',
+			'Indiana',
+			'Iowa',
+			'Kansas',
+			'Kentucky',
+			'Louisiana',
+			'Maine',
+			'Maryland',
+			'Massachusetts',
+			'Michigan',
+			'Minnesota',
+			'Mississippi',
+			'Missouri',
+			'Montana',
+			'Nebraska',
+			'Nevada',
+			'New Hampshire',
+			'New Jersey',
+			'New Mexico',
+			'New York',
+			'North Carolina',
+			'North Dakota',
+			'Ohio',
+			'Oklahoma',
+			'Oregon',
+			'Pennsylvania',
+			'Rhode Island',
+			'South Carolina',
+			'South Dakota',
+			'Tennessee',
+			'Texas',
+			'Utah',
+			'Vermont',
+			'Virginia',
+			'Washington',
+			'West Virginia',
+			'Wisconsin',
+			'Wyoming'
+		];
+	}
+}
+Util.Loc = Loc;
+
 Util.Aurelia = null;
 Util.Router = null;
 Util.CurrentApp = null;

@@ -18,6 +18,7 @@ namespace Calender.Models
         public User()
         {
             this.Userlogin = new HashSet<Userlogin>();
+            this.userprofile = new HashSet<Userprofile>();
         }
     
         public int iduser { get; set; }
@@ -27,8 +28,12 @@ namespace Calender.Models
         public string email { get; set; }
         public string password { get; set; }
         public Nullable<int> org_id { get; set; }
+        public Nullable<System.DateTime> dob { get; set; }
+        public string gender { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Userlogin> Userlogin { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Userprofile> userprofile { get; set; }
     }
 }

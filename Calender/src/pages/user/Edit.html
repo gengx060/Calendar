@@ -1,0 +1,83 @@
+﻿<template>
+	<div class="modal fade" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" click.delegate="toggle()">&times;</button>
+					<h4 class="modal-title">New Client Form</h4>
+				</div>
+				<div class="modal-body">
+					<form class="form-horizontal">
+						<div class="form-group ${lastnameE?'has-error': ''}">
+							<label class="col-xs-3 control-label">Last name*</label>
+							<div class="col-xs-5">
+								<input type="text" value.bind="lastname" class="form-control" title="1-20 characters" placeholder="Last name">
+							</div>
+						</div>
+						<div class="form-group ${firstnameE?'has-error': ''}">
+							<label class="col-xs-3 control-label">First name*</label>
+							<div class="col-xs-5">
+								<input type="text" value.bind="firstname" class="form-control" title="1-20 characters" placeholder="First ame">
+							</div>
+						</div>
+						<div class="form-group ${genderE > 0?'has-error': ''}">
+							<label class="col-xs-3 control-label">Gender*</label>
+							<div class="col-xs-3">
+								<select class="form-control" value.bind="selectedGender">
+									<option selected>Select...</option>
+									<option repeat.for="option of genders" value.bind="option">${option}</option>
+								</select>
+							</div>
+						</div>
+						<div class="form-group ">
+							<label class="col-xs-3 control-label">Home phone</label>
+							<div class="col-xs-5">
+								<input type="email" value.bind="homephone" class="form-control" placeholder="Home phone">
+							</div>
+						</div>
+						<div class="form-group ${emailE?'has-error': ''}">
+							<label class="col-xs-3 control-label">Email*</label>
+							<div class="col-xs-5">
+								<input type="email" value.bind="email" class="form-control" placeholder="Email" required>
+							</div>
+						</div>
+						<div class="form-group ${address1E?'has-error': ''}">
+							<label class="col-xs-3 control-label">Address-line 1*</label>
+							<div class="col-xs-8">
+								<input type="text" value.bind="address1" class="form-control">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-xs-3 control-label">Address-line 2</label>
+							<div class="col-xs-8">
+								<input type="text" value.bind="address2" class="form-control">
+							</div>
+						</div>
+						<div class="form-group ${cityE?'has-error': ''}">
+							<label class="col-xs-3 control-label">City</label>
+							<div class="col-xs-3">
+								<input type="text" value.bind="city" class="form-control">
+							</div>
+						</div>
+						<div class="form-group ${stateE?'has-error': ''}">
+							<label class="col-xs-3 control-label">State</label>
+							<div class="col-xs-3">
+								<input type="text" value.bind="state" class="form-control">
+							</div>
+						</div>
+						<div class="form-group  ${zipcodeE?'has-error': ''}">
+							<label class="col-xs-3 control-label">Zip code</label>
+							<div class="col-xs-3">
+								<input type="text" value.bind="zipcode" class="form-control">
+							</div>
+						</div>
+				</form>
+				</div>
+				<div class="modal-footer">
+					<button type="submit" click.delegate="submit()" class="btn btn-primary">Submit</button>
+					<button type="button" class="btn btn-default" click.delegate="toggle()">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</template>

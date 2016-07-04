@@ -44,6 +44,16 @@ namespace GGEncrypt
 			return ret;
 		}
 
+
+		public static string GenerateToken()
+		{
+			byte[] time = BitConverter.GetBytes(DateTime.UtcNow.ToBinary());
+			byte[] key = Guid.NewGuid().ToByteArray();
+			string token = Convert.ToBase64String(time.Concat(key).ToArray());
+
+			return token;
+		}
+
 		static void Main(string[] args)
 		{
 			string str = "gai geng";
