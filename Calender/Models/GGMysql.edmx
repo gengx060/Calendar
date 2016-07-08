@@ -10,14 +10,13 @@
             <PropertyRef Name="iduser" />
           </Key>
           <Property Name="iduser" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="username" Type="varchar" MaxLength="255" />
+          <Property Name="username" Type="varchar" MaxLength="255" Nullable="false" />
           <Property Name="firstname" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="lastname" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="email" Type="varchar" MaxLength="45" />
-          <Property Name="password" Type="varchar" MaxLength="512" />
+          <Property Name="password" Type="varchar" MaxLength="512" Nullable="false" />
           <Property Name="org_id" Type="int" />
-          <Property Name="dob" Type="datetime" Precision="0" />
-          <Property Name="gender" Type="varchar" MaxLength="1" />
+          <Property Name="createdby" Type="int" />
         </EntityType>
         <EntityType Name="userlogin">
           <Key>
@@ -37,7 +36,7 @@
             <PropertyRef Name="iduserprofile" />
           </Key>
           <Property Name="iduserprofile" Type="int" Nullable="false" />
-          <Property Name="userid" Type="int" Nullable="false" />
+          <Property Name="userid" Type="int" />
           <Property Name="address1" Type="varchar" MaxLength="200" />
           <Property Name="address2" Type="varchar" MaxLength="200" />
           <Property Name="city" Type="varchar" MaxLength="45" />
@@ -47,8 +46,22 @@
           <Property Name="cellphone" Type="varchar" MaxLength="45" />
           <Property Name="homephone" Type="varchar" MaxLength="45" />
           <Property Name="workphone" Type="varchar" MaxLength="45" />
+          <Property Name="dob" Type="datetime" Precision="0" />
+          <Property Name="gender" Type="varchar" MaxLength="1" />
         </EntityType>
-        <Association Name="USERID">
+        <Association Name="CREATEDBYFK">
+          <End Role="user" Type="Self.user" Multiplicity="0..1" />
+          <End Role="user1" Type="Self.user" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="iduser" />
+            </Principal>
+            <Dependent Role="user1">
+              <PropertyRef Name="createdby" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_USERID">
           <End Role="user" Type="Self.user" Multiplicity="1" />
           <End Role="userlogin" Type="Self.userlogin" Multiplicity="*" />
           <ReferentialConstraint>
@@ -60,8 +73,8 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="USERPROFILEUSERID">
-          <End Role="user" Type="Self.user" Multiplicity="1" />
+        <Association Name="FK_USERPROFILEUSERID">
+          <End Role="user" Type="Self.user" Multiplicity="0..1" />
           <End Role="userprofile" Type="Self.userprofile" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="user">
@@ -72,38 +85,82 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="ORGIDFK">
+          <End Role="user" Type="Self.user" Multiplicity="0..1" />
+          <End Role="user1" Type="Self.user" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="iduser" />
+            </Principal>
+            <Dependent Role="user1">
+              <PropertyRef Name="org_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="ggModelStoreContainer">
           <EntitySet Name="user" EntityType="Self.user" Schema="gg" store:Type="Tables" />
           <EntitySet Name="userlogin" EntityType="Self.userlogin" Schema="gg" store:Type="Tables" />
           <EntitySet Name="userprofile" EntityType="Self.userprofile" Schema="gg" store:Type="Tables" />
-          <AssociationSet Name="USERID" Association="Self.USERID">
+          <AssociationSet Name="CREATEDBYFK" Association="Self.CREATEDBYFK">
+            <End Role="user" EntitySet="user" />
+            <End Role="user1" EntitySet="user" />
+          </AssociationSet>
+          <AssociationSet Name="FK_USERID" Association="Self.FK_USERID">
             <End Role="user" EntitySet="user" />
             <End Role="userlogin" EntitySet="userlogin" />
           </AssociationSet>
-          <AssociationSet Name="USERPROFILEUSERID" Association="Self.USERPROFILEUSERID">
+          <AssociationSet Name="FK_USERPROFILEUSERID" Association="Self.FK_USERPROFILEUSERID">
             <End Role="user" EntitySet="user" />
             <End Role="userprofile" EntitySet="userprofile" />
+          </AssociationSet>
+          <AssociationSet Name="ORGIDFK" Association="Self.ORGIDFK">
+            <End Role="user" EntitySet="user" />
+            <End Role="user1" EntitySet="user" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ggModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="user" EntityType="ggModel.User" />
+          <EntitySet Name="userlogin" EntityType="ggModel.Userlogin" />
+          <EntitySet Name="userprofile" EntityType="ggModel.Userprofile" />
+          <AssociationSet Name="CREATEDBYFK" Association="ggModel.CREATEDBYFK">
+            <End Role="user" EntitySet="user" />
+            <End Role="user1" EntitySet="user" />
+          </AssociationSet>
+          <AssociationSet Name="FK_USERID" Association="ggModel.FK_USERID">
+            <End Role="user" EntitySet="user" />
+            <End Role="userlogin" EntitySet="userlogin" />
+          </AssociationSet>
+          <AssociationSet Name="FK_USERPROFILEUSERID" Association="ggModel.FK_USERPROFILEUSERID">
+            <End Role="user" EntitySet="user" />
+            <End Role="userprofile" EntitySet="userprofile" />
+          </AssociationSet>
+          <AssociationSet Name="ORGIDFK" Association="ggModel.ORGIDFK">
+            <End Role="user" EntitySet="user" />
+            <End Role="user1" EntitySet="user" />
+          </AssociationSet>
+        </EntityContainer>
         <EntityType Name="User">
           <Key>
             <PropertyRef Name="iduser" />
           </Key>
           <Property Name="iduser" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="username" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="firstname" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="lastname" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="username" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="firstname" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="lastname" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="email" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
-          <Property Name="password" Type="String" MaxLength="512" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="password" Type="String" Nullable="false" MaxLength="512" FixedLength="false" Unicode="false" />
           <Property Name="org_id" Type="Int32" />
-          <NavigationProperty Name="Userlogin" Relationship="Self.USERID" FromRole="user" ToRole="userlogin" />
-          <NavigationProperty Name="userprofile" Relationship="ggModel.USERPROFILEUSERID" FromRole="User" ToRole="userprofile" />
-          <Property Name="dob" Type="DateTime" />
-          <Property Name="gender" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="createdby" Type="Int32" />
+          <NavigationProperty Name="user1" Relationship="ggModel.CREATEDBYFK" FromRole="user" ToRole="user1" />
+          <NavigationProperty Name="user2" Relationship="ggModel.CREATEDBYFK" FromRole="user1" ToRole="user" />
+          <NavigationProperty Name="userlogin" Relationship="ggModel.FK_USERID" FromRole="user" ToRole="userlogin" />
+          <NavigationProperty Name="userprofile" Relationship="ggModel.FK_USERPROFILEUSERID" FromRole="user" ToRole="userprofile" />
+          <NavigationProperty Name="user11" Relationship="ggModel.ORGIDFK" FromRole="user" ToRole="user1" />
+          <NavigationProperty Name="user3" Relationship="ggModel.ORGIDFK" FromRole="user1" ToRole="user" />
         </EntityType>
         <EntityType Name="Userlogin">
           <Key>
@@ -114,36 +171,11 @@
           <Property Name="encryptkey" Type="String" MaxLength="512" FixedLength="false" Unicode="false" />
           <Property Name="encryptvalue" Type="String" MaxLength="512" FixedLength="false" Unicode="false" />
           <Property Name="create_time" Type="DateTime" />
-          <NavigationProperty Name="User" Relationship="Self.USERID" FromRole="userlogin" ToRole="user" />
           <Property Name="cookie" Type="String" MaxLength="512" FixedLength="false" Unicode="false" />
           <Property Name="form" Type="String" MaxLength="512" FixedLength="false" Unicode="false" />
           <Property Name="userIp" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="user" Relationship="ggModel.FK_USERID" FromRole="userlogin" ToRole="user" />
         </EntityType>
-        <Association Name="USERID">
-          <End Role="user" Type="ggModel.User" Multiplicity="1" />
-          <End Role="userlogin" Type="ggModel.Userlogin" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="user">
-              <PropertyRef Name="iduser" />
-            </Principal>
-            <Dependent Role="userlogin">
-              <PropertyRef Name="userid" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="user" EntityType="ggModel.User" />
-          <EntitySet Name="userlogin" EntityType="ggModel.Userlogin" />
-          <AssociationSet Name="USERID" Association="Self.USERID">
-            <End Role="user" EntitySet="user" />
-            <End Role="userlogin" EntitySet="userlogin" />
-          </AssociationSet>
-          <EntitySet Name="userprofile" EntityType="ggModel.Userprofile" />
-          <AssociationSet Name="USERPROFILEUSERID" Association="ggModel.USERPROFILEUSERID">
-            <End Role="User" EntitySet="user" />
-            <End Role="userprofile" EntitySet="userprofile" />
-          </AssociationSet>
-        </EntityContainer>
         <EntityType Name="Userprofile">
           <Key>
             <PropertyRef Name="iduserprofile" />
@@ -156,16 +188,42 @@
           <Property Name="state" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
           <Property Name="country" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
           <Property Name="zipcode" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="user" Relationship="ggModel.USERPROFILEUSERID" FromRole="userprofile" ToRole="User" />
           <Property Name="cellphone" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
           <Property Name="homephone" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
           <Property Name="workphone" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="dob" Type="DateTime" />
+          <Property Name="gender" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="user" Relationship="ggModel.FK_USERPROFILEUSERID" FromRole="userprofile" ToRole="user" />
         </EntityType>
-        <Association Name="USERPROFILEUSERID">
-          <End Type="ggModel.User" Role="User" Multiplicity="0..1" />
+        <Association Name="CREATEDBYFK">
+          <End Type="ggModel.User" Role="user" Multiplicity="0..1" />
+          <End Type="ggModel.User" Role="user1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="iduser" />
+            </Principal>
+            <Dependent Role="user1">
+              <PropertyRef Name="createdby" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_USERID">
+          <End Type="ggModel.User" Role="user" Multiplicity="1" />
+          <End Type="ggModel.Userlogin" Role="userlogin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="iduser" />
+            </Principal>
+            <Dependent Role="userlogin">
+              <PropertyRef Name="userid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_USERPROFILEUSERID">
+          <End Type="ggModel.User" Role="user" Multiplicity="0..1" />
           <End Type="ggModel.Userprofile" Role="userprofile" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="User">
+            <Principal Role="user">
               <PropertyRef Name="iduser" />
             </Principal>
             <Dependent Role="userprofile">
@@ -173,24 +231,35 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        <Association Name="ORGIDFK">
+          <End Type="ggModel.User" Role="user" Multiplicity="0..1" />
+          <End Type="ggModel.User" Role="user1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="iduser" />
+            </Principal>
+            <Dependent Role="user1">
+              <PropertyRef Name="org_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
-      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="ggModelStoreContainer" CdmEntityContainer="Entities">
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ggModelStoreContainer" CdmEntityContainer="Entities">
           <EntitySetMapping Name="user">
             <EntityTypeMapping TypeName="ggModel.User">
               <MappingFragment StoreEntitySet="user">
-                <ScalarProperty Name="gender" ColumnName="gender" />
-                <ScalarProperty Name="dob" ColumnName="dob" />
-                <ScalarProperty Name="iduser" ColumnName="iduser" />
-                <ScalarProperty Name="username" ColumnName="username" />
-                <ScalarProperty Name="firstname" ColumnName="firstname" />
-                <ScalarProperty Name="lastname" ColumnName="lastname" />
-                <ScalarProperty Name="email" ColumnName="email" />
-                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="createdby" ColumnName="createdby" />
                 <ScalarProperty Name="org_id" ColumnName="org_id" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="lastname" ColumnName="lastname" />
+                <ScalarProperty Name="firstname" ColumnName="firstname" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="iduser" ColumnName="iduser" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -200,17 +269,19 @@
                 <ScalarProperty Name="userIp" ColumnName="userIp" />
                 <ScalarProperty Name="form" ColumnName="form" />
                 <ScalarProperty Name="cookie" ColumnName="cookie" />
-                <ScalarProperty Name="iduserlogin" ColumnName="iduserlogin" />
-                <ScalarProperty Name="userid" ColumnName="userid" />
-                <ScalarProperty Name="encryptkey" ColumnName="encryptkey" />
-                <ScalarProperty Name="encryptvalue" ColumnName="encryptvalue" />
                 <ScalarProperty Name="create_time" ColumnName="create_time" />
+                <ScalarProperty Name="encryptvalue" ColumnName="encryptvalue" />
+                <ScalarProperty Name="encryptkey" ColumnName="encryptkey" />
+                <ScalarProperty Name="userid" ColumnName="userid" />
+                <ScalarProperty Name="iduserlogin" ColumnName="iduserlogin" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="userprofile">
             <EntityTypeMapping TypeName="ggModel.Userprofile">
               <MappingFragment StoreEntitySet="userprofile">
+                <ScalarProperty Name="gender" ColumnName="gender" />
+                <ScalarProperty Name="dob" ColumnName="dob" />
                 <ScalarProperty Name="workphone" ColumnName="workphone" />
                 <ScalarProperty Name="homephone" ColumnName="homephone" />
                 <ScalarProperty Name="cellphone" ColumnName="cellphone" />
@@ -226,8 +297,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
         </EntityContainerMapping>
-      </Mapping>
-    </edmx:Mappings>
+</Mapping></edmx:Mappings>
   </edmx:Runtime>
   <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
   <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
@@ -241,8 +311,9 @@
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
         <DesignerProperty Name="EnablePluralization" Value="false" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
-        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="DDLGenerationTemplate" Value="$(VSEFTools)\DBGen\SSDLToMySQL.tt" />
       </DesignerInfoPropertySet>
     </Options>
     <!-- Diagram content (shape and connector positions) -->

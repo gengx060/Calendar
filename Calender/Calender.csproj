@@ -140,8 +140,9 @@
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
     </Reference>
-    <Reference Include="MySql.Data.Entity.EF6, Version=6.9.8.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
-    <Reference Include="MySql.Web, Version=6.9.8.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
+    <Reference Include="MySql.Data, Version=6.9.9.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
+    <Reference Include="MySql.Data.Entity.EF6, Version=6.9.9.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
+    <Reference Include="MySql.Web, Version=6.9.9.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -238,6 +239,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>GGMysql.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\modules\contacts\Contacts.cs" />
     <Compile Include="Models\Rule\Token.cs" />
     <Compile Include="Models\User.cs">
       <DependentUpon>GGMysql.tt</DependentUpon>
@@ -2902,6 +2904,7 @@
       <DependentUpon>GGMysql.edmx</DependentUpon>
       <LastGenOutput>GGMysql.Context.cs</LastGenOutput>
     </Content>
+    <Content Include="Models\GGMysql.edmx.sql" />
     <Content Include="Models\GGMysql.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>GGMysql.edmx</DependentUpon>

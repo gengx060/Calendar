@@ -25,6 +25,8 @@ namespace Calender.Models
         public string cellphone { get; set; }
         public string homephone { get; set; }
         public string workphone { get; set; }
+        public Nullable<System.DateTime> dob { get; set; }
+        public string gender { get; set; }
     
         public virtual User user { get; set; }
     }

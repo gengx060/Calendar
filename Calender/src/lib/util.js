@@ -11,6 +11,10 @@ export class Util {
 	constructor() {
 	} 
 
+	static user() {
+		return  $.parseJSON(sessionStorage.getItem("user"));
+	}
+
 	static ajaxRequest(myPostData, url, success, error, complete) {
 
 		var headers = {};
@@ -75,15 +79,65 @@ export class Util {
 	
 }
 
+Util.toastr = toastr;
+//Util.User = {};
+
 class Validation {
 	static nonempty() {
 		return /([^\s])/;
+	}
+	static email() {
+		return /[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}/;
+	}
+	static phonenumber() {
+		return /^(?:\(\d{3}\)|\d{3})[- ]?\d{3}[- ]?\d{4}$/;
+	}
+	static select() {
+		return 'Select...';
+	}
+
+	static rawInit(self, props) {
+		props.forEach(it=> {
+			eval(`self.${it} = it`);
+		}); 
+	}
+
+	static emptyInit(self, props) {
+		props.forEach(it=> {
+			eval(`self.${it} = null`);
+		}); 
+	}
+
+	static checkAll(self, props) {
+		let flag = false;
+		props.forEach(it=>
+		{
+			eval(`flag = flag||self.${it}E`)
+		});
+		return !flag;
+	}
+	static classToJson(self, props) {
+		let json = {};
+		props.forEach(it=>
+		{
+			eval(`json.${it} = self.${it}`)
+		});
+		return json
 	}
 
 	static validate(self, prop, rule) {
 		
 		if(eval('self.'+prop+'==null') ) {
 			eval('self.'+prop+'E = true');
+			return;
+		}
+
+		if(rule == this.select()) {
+			if(eval('self.'+prop+`== '${this.select()}'`) ) {
+				eval('self.'+prop+'E = true'); 
+			} else {
+				eval('self.'+prop+'E = false'); 
+			}
 			return;
 		}
 
@@ -98,6 +152,10 @@ class Validation {
 Util.Validation = Validation;
 
 class Loc{
+	static genders() {
+		return ['Male', 'Female', 'Other'];
+	}
+
 	static states() {
 		return [
 			'Alabama',

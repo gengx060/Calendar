@@ -33,6 +33,13 @@ export class ViewFactory {
 			view.unbind();
 		};
 	}
+	
+	createView( html, viewModel) {
+		this.viewFactory = this.viewCompiler.compile(html);
+		let view = this.viewFactory.create(this.container);
+		view.bind(viewModel, createOverrideContext(viewModel));
+		return view;
+	}
 
 	dispose() {
 		this.viewSlot.remove(this.view);

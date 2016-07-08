@@ -64,10 +64,14 @@ namespace Calender.Controllers
 				string password = args.password.ToString();
 				var user = _db.user.FirstOrDefault(o => o.email == email);
 
-				if (Encryption.CompareHashFromPassword(user.password.ToString(), password))
+				if (user != null && Encryption.CompareHashFromPassword(user.password.ToString(), password))
 				{
 					Token token = new Token();
-					JObject json1 = JObject.FromObject(new { antiForgeryToken = token.GenerateTokenWithId(10, ModelUtil.GetClientIp(Request)) }); ;
+					JObject json1 = JObject.FromObject(new {
+						antiForgeryToken = token.GenerateTokenWithId(user.iduser, ModelUtil.GetClientIp(Request)),
+						userid = user.iduser,
+						orgid = user.org_id ?? user.iduser
+					});
 					return Ok(json1);
 				}
 				else

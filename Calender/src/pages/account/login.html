@@ -14,16 +14,21 @@
 			<p id="profile-name" class="profile-name-card"></p>
 			<form class="form-signin">
 				<span id="reauth-email" class="reauth-email"></span>
-				<input type="email" value.bind="email" class="form-control" placeholder="Email address" required autofocus>
-				<input type="password" value.bind="password" class="form-control" placeholder="Password" required  pattern=".{5,10}" title="5 to 10 characters">
-				<div id="remember" class="checkbox">
-					<label>
-						<input type="checkbox" value="remember-me"> Remember me
-					</label>
+				<div class="form-group ${emailE?'has-error': ''}">
+					<input type="email" value.bind="email" class="form-control" placeholder="Email address" required autofocus>
 				</div>
-				<button class="btn btn-lg btn-info btn-block" click.delegate="submit()">
-					Sign in <i if.bind="loading" class="fa fa-spin fa-spinner"></i></button>
-			</form><!-- /form -->
+				<div class="form-group ${passwordE?'has-error': ''}">
+					<input type="password" value.bind="password" class="form-control" placeholder="Password" required pattern=".{5,10}" title="5 to 10 characters">
+				</div>
+						<!--<div id="remember" class="checkbox">
+			<label>
+				<input type="checkbox" value="remember-me"> Remember me
+			</label>
+		</div>-->
+						<button class="btn btn-lg btn-info btn-block" click.delegate="submit()">
+							Sign in <i if.bind="loading" class="fa fa-spin fa-spinner"></i>
+						</button>
+</form><!-- /form -->
 			<a href="#" class="forgot-password">
 				Forgot the password?
 			</a><br/>

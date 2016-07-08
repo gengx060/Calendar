@@ -20,18 +20,22 @@ namespace Calender.Models.Rule
 			{
 				userid = userId,
 				cookie = cookie,
-				form = form,
+				//form = form,
 				create_time = DateTime.Now,
 				userIp = ip
 			};
 			_db.userlogin.Add(login);
-			_db.TrySaveChanges();
+			_db.SaveChanges();
 
 			return cookie + ':' + form + ':' + userId;
 		}
 
 		public bool validate(string token, string ip)
 		{
+			if (token == null|| token == "null")
+			{
+				return false;
+			}
 			var cookie = string.Empty;
 			var form = string.Empty;
 			int userId = -1;
@@ -51,7 +55,7 @@ namespace Calender.Models.Rule
 				return false;
 			}
 
-			return userlogin.form == form && userlogin.cookie == cookie;
+			return ((userlogin.form==null && form=="") ||userlogin.form == form) && userlogin.cookie == cookie;
 		}
 	}
 }

@@ -1,14 +1,40 @@
 ﻿
-<template>	<!--data-trigger="focus"-->
+<template>
+	<!--data-trigger="focus"-->
 
 	<a data-placement="${position?position:'right'}"
 	   data-toggle="popover"
 	   data-container="body"
-	   data-trigger="focus"
+	   data-trigger="fixed"
 	   data-html="true" href="#">
-		<!--<span class="glyphicon glyphicon-search" style="margin:3px 0 0 0"></span>-->
 		<img style="max-width:25px;" src="src/assets/images/avatar_2x.png" alt="sfe" class="img-circle" />
 	</a>
-</template>
-<!--<div id="popover-content" class="hide">-->
+	<!--<a data-toggle="popover" click.delegate="pop()" href="#">
+		<img style="max-width:25px;" src="src/assets/images/avatar_2x.png" alt="sfe" class="img-circle" />
+	</a>-->
 
+	<!--<div id="popover-content" class="hide">-->
+	<!-- Content for Popover #1 -->
+	<div class="hide">
+		<div if.bind="loading" style='width:350px;height:150px; max-width:350px;'><i  class="fa fa-spin fa-spinner" ></i></div>
+		<div if.bind="!loading" style='width:350px;height:150px; ' class="row">
+			<div class="col-md-4">
+				<img style="max-width:50px;" src="src/assets/images/avatar_2x.png" alt="sfe" class="img-circle" />
+			</div>
+			<div class="col-md-8">
+				<form class="form-horizontal">
+					<div class="form-group">
+						<p class="form-control-static">${name}</p>
+					</div>
+					<div class="form-group">
+						<p class="form-control-static">${email}</p>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<!--<div class='row'><a href="#">Another action</a></div>
+	<div class='row'><a href="#">Something else here</a></div>
+	<div class='row'><a href="#">Separated link</a></div>-->
+
+</template>

@@ -17,8 +17,10 @@ namespace Calender.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public User()
         {
-            this.Userlogin = new HashSet<Userlogin>();
+            this.user1 = new HashSet<User>();
+            this.userlogin = new HashSet<Userlogin>();
             this.userprofile = new HashSet<Userprofile>();
+            this.user11 = new HashSet<User>();
         }
     
         public int iduser { get; set; }
@@ -28,12 +30,17 @@ namespace Calender.Models
         public string email { get; set; }
         public string password { get; set; }
         public Nullable<int> org_id { get; set; }
-        public Nullable<System.DateTime> dob { get; set; }
-        public string gender { get; set; }
+        public Nullable<int> createdby { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Userlogin> Userlogin { get; set; }
+        public virtual ICollection<User> user1 { get; set; }
+        public virtual User user2 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Userlogin> userlogin { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Userprofile> userprofile { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<User> user11 { get; set; }
+        public virtual User user3 { get; set; }
     }
 }

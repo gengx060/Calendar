@@ -25,7 +25,7 @@
 					<!--<require from="../util/tags/test"></require>-->
 					<!--<button style="width:120px;margin-bottom:5px" class="btn btn-primary pull-right">New contact</button>-->
 					<a style="width:120px;margin-bottom:5px" class="btn btn-primary pull-right" route-href="route: welcome;
-                                   params.bind: {id1:123123}">
+                                   params.bind: {editshow:1}">
 						New contact
 					</a>
 
@@ -34,7 +34,7 @@
 						<tbody>
 							<tr repeat.for="val of contacts">
 								<td>${$index}</td> 
-								<td>${val.img}<vcard position="top"></vcard></td>
+								<td>${val.img}<vcard position="right" userid="${val.id}"></vcard></td>
 								<td>${val.name}</td>
 								<td>${val.email}</td>
 								
@@ -92,9 +92,9 @@
 
 					<div class="alert alert-warning alert-dismissible" role="alert">
 						<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-						<strong>Warning!</strong> Better check yourself, you're not looking too good.
+						<strong>Warning!</strong> this is a test!
 					</div>
-					<edit panel-if="${number}"></edit>
+					<edit panel-if="${editShow}"></edit>
 
 					<!--<vcard></vcard>-->
 					<!--<vcardm></vcardm>-->

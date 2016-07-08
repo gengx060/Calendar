@@ -4,12 +4,14 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="f995b89388194e0b9fb6cc899c19fecd" Name="Diagram1">
-        <EntityTypeShape EntityType="ggModel.User" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="ggModel.Userlogin" Width="1.5" PointX="3" PointY="1.125" IsExpanded="true" />
-        <AssociationConnector Association="ggModel.USERID" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="ggModel.Userprofile" Width="1.5" PointX="3" PointY="4.375" />
-        <AssociationConnector Association="ggModel.USERPROFILEUSERID" />
+      <Diagram DiagramId="f995b89388194e0b9fb6cc899c19fecd" Name="Diagram1" ZoomLevel="102">
+        <EntityTypeShape EntityType="ggModel.User" Width="1.5" PointX="0.75" PointY="2.875" />
+        <EntityTypeShape EntityType="ggModel.Userlogin" Width="1.5" PointX="3" PointY="1.125" />
+        <EntityTypeShape EntityType="ggModel.Userprofile" Width="1.5" PointX="3" PointY="4.625" />
+        <AssociationConnector Association="ggModel.CREATEDBYFK" />
+        <AssociationConnector Association="ggModel.FK_USERID" />
+        <AssociationConnector Association="ggModel.FK_USERPROFILEUSERID" />
+        <AssociationConnector Association="ggModel.ORGIDFK" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

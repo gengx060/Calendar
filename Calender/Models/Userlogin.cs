@@ -23,6 +23,6 @@ namespace Calender.Models
         public string form { get; set; }
         public string userIp { get; set; }
     
-        public virtual User User { get; set; }
+        public virtual User user { get; set; }
     }
 }

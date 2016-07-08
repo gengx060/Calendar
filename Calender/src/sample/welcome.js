@@ -6,9 +6,9 @@ import $ from 'bootstrap';
 import BootstrapDialog from 'lib/bootstrap-dialog';
 
 import template1 from "pages/user/edit.html!text";
-import template1js from "pages/user/edit.js!text";
+import {Edit1} from "pages/user/edit.js";
 
-
+console.log(Edit1);
 let httpClient = new HttpClient();
 import Util from 'lib/util';
 
@@ -20,9 +20,10 @@ export class Welcome {
 	firstName = 'John';
 	lastName = 'Doe';
 	date1 = '10/26/2013';
-	number = 121;
+	editShow = 0;
 
-	contacts = [{name:'hongyu li', img:'1', email:'i@1.com'},
+	contacts = null;
+	contacts1 = [{name:'hongyu li', img:'1', email:'i@1.com'},
 				{name:'hongyu li', img:'2', email:'i@1.com'},
 				{name:'hongyu li', img:'default', email:'i@1.com'},
 				{name:'hongyu li', img:'default', email:'i@1.com'},
@@ -35,22 +36,27 @@ export class Welcome {
 		this.element = element;
 		this.viewFactory = viewFactory;
 		//this.dialogService = dialogService;
-		console.log(this.element);
+		//console.log(this.element);
+		this.loadContacts()
+		this.edit = Edit1;
 		//debugger;
 	}
 	
-	//activate() {
-	//	BootstrapDialog.success('Goodbye data has been cleaned up !');
-	//};
+	activate() {
+		this.loadContacts()
+	};
 
 	get fullName() {
 		return `${this.firstName} ${this.lastName}`;
 	}
 	
 	loadContacts() {
-		Util.ajaxRequest({}, 'Contacts/GetContacts',
+		let req = {};
+		req.user = Util.user();
+		Util.ajaxRequest(req, 'Contacts/GetContacts',
 			res => {
 				let p = $.parseJSON(res)
+				this.contacts = p.contacts;
 				console.log(res);
 			},res => {
 				console.log(res);
@@ -76,33 +82,42 @@ export class Welcome {
 	}
 	
 	fun2() { 
+		
+		let viewHtml = template1;
+		let viewModelJs = Edit1;
+		//this.embed = this.viewFactory.createView(viewHtml, viewModelJs);
+		//let i = 1;
+		this.embed = this.viewFactory.insert(this.element, viewHtml, viewModelJs);
+		
 		//BootstrapDialog.alert('I want banana!');
-		BootstrapDialog.show({
-			message: 'I send ajax request!',
-			buttons: [{
-				icon: 'glyphicon glyphicon-send',
-				label: 'Send ajax request',
-				cssClass: 'btn-primary',
-				autospin: true,
-				action: function(dialogRef){
-					dialogRef.enableButtons(false);
-					dialogRef.setClosable(false);
-					dialogRef.getModalBody().html('Dialog closes in 5 seconds.');
-					setTimeout(() => dialogRef.close(), 5000);
-				}
-			}, {
-				label: 'Close',
-				action: function(dialogRef){
-					dialogRef.close();
-				}
-			}]
-		});
+		//BootstrapDialog.show({
+		//	message: 'I send ajax request!',
+		//	buttons: [{
+		//		icon: 'glyphicon glyphicon-send',
+		//		label: 'Send ajax request',
+		//		cssClass: 'btn-primary',
+		//		autospin: true,
+		//		action: function(dialogRef){
+		//			dialogRef.enableButtons(false);
+		//			dialogRef.setClosable(false);
+		//			dialogRef.getModalBody().html('Dialog closes in 5 seconds.');
+		//			setTimeout(() => dialogRef.close(), 5000);
+		//		}
+		//	}, {
+		//		label: 'Close',
+		//		action: function(dialogRef){
+		//			dialogRef.close();
+		//		}
+		//	}]
+		//});
 	}
 	 
 	
 	fun3() {
 		let viewHtml = template1;
 		let viewModelJs = template1js;
+		//this.embed = this.viewFactory.insert(this.element, viewHtml, viewModelJs);
+		
 		//debugger
 		//return;
 		////let viewHtml = `<template>
@@ -141,7 +156,11 @@ export class Welcome {
 	}
 	
 	activate(params) {
-		debugger;
+		if (params.editshow == 1) {
+			this.editShow = 1;
+		} else {
+			this.editShow = 0;
+		}
 	}
 
 	attached(){
@@ -150,7 +169,11 @@ export class Welcome {
 	}
 	
 	determineActivationStrategy(params){
-		debugger;
+		if (params.editshow == 1) {
+			this.editShow = 1;
+		} else {
+			this.editShow = 0;
+		}
 	}
 	deactivate() {
 		//BootstrapDialog.success('Goodbye data has been cleaned up !');

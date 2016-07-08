@@ -3,22 +3,8 @@ import Util from 'lib/util';
 export class App {
 	configureRouter(config, router) {
 		config.title = 'GG';
-		config.options.pushState = true;
+		//config.options.pushState = true;
 		config.map([
-				//{
-				//	route:['', 'login'],
-				//	name: 'login',
-				//	title:'Home',
-				//	nav:false,
-				//	moduleId:'./pages/account/login'
-				//},
-				//{
-				//	route:'signup',
-				//	name: 'signup',
-				//	title:'signup',
-				//	nav:false,
-				//	moduleId:'./pages/account/signup'
-				//},
 				{
 					route:['','welcome'],
 					name: 'welcome',

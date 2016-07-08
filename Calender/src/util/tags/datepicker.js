@@ -15,7 +15,7 @@ export class DatePicker {
 	}
 
 	attached() {
-		self = this;
+		let self = this;
 		$(this.element).datepicker()
 			//.on('change', e => fireEvent(e.target, 'input'));
 			.on('changeDate', e => {

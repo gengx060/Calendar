@@ -8,6 +8,8 @@ import Util from 'lib/util';
 export class Login {
 	email = 's@s';
 	password = '12312313';
+	emailE = false;
+	passwordE = false;
 	loading = false;
 	signupShow = false;
 
@@ -30,7 +32,14 @@ export class Login {
 				sessionStorage.setItem("antiForgeryToken", p.antiForgeryToken);
 				this.aurelia.setRoot('app');
 				Util.CurrentApp = 'app';
+				sessionStorage.setItem("user", JSON.stringify({userid:p.userid, orgid : p.orgid}));
+				//Util.User.userId =  p.userid;
+				//Util.User.orgid =  p.orgid;
 			},res => {
+				if (res.responseText == '"Wrong username and password!"') {
+					this.emailE = true;
+					this.passwordE = true;
+				}
 				console.log(res);
 			},res => {
 				self.loading = false;
