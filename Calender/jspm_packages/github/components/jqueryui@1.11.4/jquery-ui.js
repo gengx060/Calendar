@@ -3283,8 +3283,13 @@ $.widget( "ui.autocomplete", {
 		return this._renderItem( ul, item ).data( "ui-autocomplete-item", item );
 	},
 
-	_renderItem: function( ul, item ) {
-		return $( "<li>" ).text( item.label ).appendTo( ul );
+	_renderItem: function (ul, item) {
+		if (item.icon)
+			return $("<li></li>").text(item.label)
+				.prepend("<i class='" + item.icon + "'></i>")
+				.appendTo(ul);
+		else
+			return $("<li>").text(item.label).appendTo(ul);
 	},
 
 	_move: function( direction, event ) {

@@ -23,6 +23,7 @@ export class Welcome {
 	editShow = 0;
 
 	contacts = null;
+	tags = null;
 	contacts1 = [{name:'hongyu li', img:'1', email:'i@1.com'},
 				{name:'hongyu li', img:'2', email:'i@1.com'},
 				{name:'hongyu li', img:'default', email:'i@1.com'},
@@ -30,6 +31,13 @@ export class Welcome {
 				{name:'hongyu li', img:'default', email:'i@1.com'},
 				{name:'hongyu li', img:'default', email:'i@1.com'},
 				{name:'hongyu li', img:'default', email:'i@1.com'}]
+	
+	selectOptions = [
+		{label: 'My Option', value: 'my-value'},
+		{label: 'Some Value', value: '1212'},
+		{label: 'Select Me!', value: 'fsdf32423_312'},
+	];
+
 
 	//static inject = [Element,Compiler]
 	constructor(element, viewFactory) {
@@ -62,6 +70,11 @@ export class Welcome {
 				console.log(res);
 			}
 		);
+	}
+	
+	changeCallback(evt) {
+		// The selected value will be printed out to the browser console
+		console.log(evt.detail.value);
 	}
 
 	fun1() {

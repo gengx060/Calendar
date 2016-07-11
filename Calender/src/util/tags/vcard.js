@@ -1,4 +1,5 @@
 ﻿import {bindable, inject, bindingMode} from 'aurelia-framework';
+import $ from 'bootstrap';
 import Util from 'lib/util';
 
 @inject(Element)
@@ -40,7 +41,7 @@ export class Vcard {
 		//	}})
 	}
 
-	attached1() {
+	attached() {
 		let req = {userid: this.userid};
 		Util.ajaxRequest(req, 'Contacts/GetContact',
 			res => {
@@ -63,37 +64,37 @@ export class Vcard {
 		);
 	}
 	
-	attached() {
-		this.pop = $(this.element).find("[data-toggle=popover]");
-		this.pop.popover({
-			html: true, 
-			content: ()=>$(this.element).find('div.hide').html()
-		});
+	attached1() {
+		//this.pop = $(this.element).find("[data-toggle=popover]");
+		//this.pop.popover({
+		//	html: true, 
+		//	content: ()=>$(this.element).find('div.hide').html()
+		//});
 
-		this.pop.on('show.bs.popover',  () => {
-			this.loading = true;
+		//this.pop.on('show.bs.popover',  () => {
+		//	this.loading = true;
 			
-			$('div.popover-content:visible').html($('div.hide').html());
+		//	$('div.popover-content:visible').html($('div.hide').html());
 
-			let req = {userid: this.userid};
-			Util.ajaxRequest(req, 'Contacts/GetContact',
-				res => {
-					let p = $.parseJSON(res);
-					this.name = p.name;
-					this.email = p.email;
-					//$(self.element).find('.popover-content:visible').html($(self.element).find('div.hide').html());
-					setTimeout(() =>
-						//$(this.element).find('div.popover-content:visible').html($(this.element).find('div.hide').html()),
-						$('div.popover-content:visible').html($('div.hide').html()),
-						100);
-				},res => {
-					console.log(res);
-				}, res => {
-					this.loading = false;
-				}
+		//	let req = {userid: this.userid};
+		//	Util.ajaxRequest(req, 'Contacts/GetContact',
+		//		res => {
+		//			let p = $.parseJSON(res);
+		//			this.name = p.name;
+		//			this.email = p.email;
+		//			//$(self.element).find('.popover-content:visible').html($(self.element).find('div.hide').html());
+		//			setTimeout(() =>
+		//				//$(this.element).find('div.popover-content:visible').html($(this.element).find('div.hide').html()),
+		//				$('div.popover-content:visible').html($('div.hide').html()),
+		//				100);
+		//		},res => {
+		//			console.log(res);
+		//		}, res => {
+		//			this.loading = false;
+		//		}
 
-			);
-		})
+		//	);
+		//})
 	}
 	//attached1() {
 	//	$("[data-toggle=popover]").popover({

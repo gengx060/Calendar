@@ -3144,11 +3144,16 @@
     <Content Include="src\app.js" />
     <Content Include="src\assets\css\bootstrap-dialog.css" />
     <Content Include="src\assets\css\datepicker.css" />
+    <Content Include="src\assets\css\jquery.tagit.css" />
+    <Content Include="src\assets\css\select2.css" />
+    <Content Include="src\assets\css\tagit.ui-zendesk.css" />
     <Content Include="src\assets\images\avatar_2x.png" />
     <Content Include="src\lib\bootstrap-datepicker.js" />
     <Content Include="src\lib\bootstrap-dialog.js" />
     <Content Include="src\lib\linq.js" />
     <Content Include="src\assets\css\toastr.css" />
+    <Content Include="src\lib\select2.js" />
+    <Content Include="src\lib\tag-it.js" />
     <Content Include="src\lib\toastr.js" />
     <Content Include="src\lib\view-factory.js" />
     <Content Include="src\main.js" />
@@ -3166,6 +3171,10 @@
     <Content Include="src\sample\welcome.css" />
     <Content Include="src\util\tags\datepicker.html" />
     <Content Include="src\util\tags\datepicker.js" />
+    <Content Include="src\util\tags\ggselect.html" />
+    <Content Include="src\util\tags\ggselect.js" />
+    <Content Include="src\util\tags\ggtag.html" />
+    <Content Include="src\util\tags\ggtag.js" />
     <Content Include="src\util\tags\index.js" />
     <Content Include="src\util\tags\modal.html" />
     <Content Include="src\util\tags\modal.js" />
