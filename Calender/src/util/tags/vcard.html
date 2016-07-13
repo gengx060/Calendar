@@ -1,7 +1,11 @@
 ﻿
 <template>
 	<!--data-trigger="focus"-->
-
+	<style
+	.popover {
+	max-width: 600px;
+	width: auto;
+	}></style>
 	<a data-placement="${position?position:'right'}"
 	   data-toggle="popover"
 	   data-container="body"
@@ -17,7 +21,7 @@
 	<!-- Content for Popover #1 -->
 	<div class="hide">
 		<div if.bind="loading" style='width:350px;height:150px; max-width:350px;'><i  class="fa fa-spin fa-spinner" ></i></div>
-		<div if.bind="!loading" style='width:350px;height:150px; ' class="row">
+		<div if.bind="!loading" class="row">
 			<div class="col-md-4">
 				<img style="max-width:50px;" src="src/assets/images/avatar_2x.png" alt="sfe" class="img-circle" />
 			</div>
@@ -29,7 +33,10 @@
 					<div class="form-group">
 						<p class="form-control-static">${email}</p>
 					</div>
-				</form>
+					<div class="form-group">
+						<gglabels labels.two-way="labels"></gglabels>
+					</div>
+			</form>
 			</div>
 		</div>
 	</div>

@@ -3,7 +3,7 @@ import {HttpClient, json} from 'aurelia-fetch-client';
 import {inject, bindable} from 'aurelia-framework';
 import {ViewFactory} from 'lib/view-factory';
 import $ from 'bootstrap';
-import BootstrapDialog from 'lib/bootstrap-dialog';
+//import BootstrapDialog from 'lib/bootstrap-dialog';
 
 import template1 from "pages/user/edit.html!text";
 import {Edit1} from "pages/user/edit.js";
@@ -24,6 +24,8 @@ export class Welcome {
 
 	contacts = null;
 	tags = null;
+	labels = [{name:'employee'},{name:'client'},{name:'provider'}];
+	labels1 = 1;
 	contacts1 = [{name:'hongyu li', img:'1', email:'i@1.com'},
 				{name:'hongyu li', img:'2', email:'i@1.com'},
 				{name:'hongyu li', img:'default', email:'i@1.com'},
@@ -95,7 +97,10 @@ export class Welcome {
 	}
 	
 	fun2() { 
-		
+		this.labels.push(5);
+		//this.labels = [5,3,4];
+		this.labels1 = 2;
+		return;
 		let viewHtml = template1;
 		let viewModelJs = Edit1;
 		//this.embed = this.viewFactory.createView(viewHtml, viewModelJs);

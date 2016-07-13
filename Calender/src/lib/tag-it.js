@@ -469,12 +469,13 @@
             if (addIcon) {
             	var icon = $('<i class="'+addIcon+'"></i>');
             }
-			var label = $(this.options.onTagClicked ? '<a class="tagit-label"></a>' : '<span class="tagit-label"></span>').text(value);
+            var label = $(this.options.onTagClicked ? '<a class="tagit-label"></a>' : '<span class="tagit-label"></span>').text(value);
 
         	// Create tag.
             var tag = $('<li></li>')
                 .addClass('tagit-choice ui-widget-content ui-state-default ui-corner-all')
                 .addClass(additionalClass)
+                //.addClass('label label-info')
                 .append(label)
         		.prepend(icon);
 

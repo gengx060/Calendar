@@ -25,7 +25,7 @@
 				<input type="checkbox" value="remember-me"> Remember me
 			</label>
 		</div>-->
-						<button class="btn btn-lg btn-info btn-block" click.delegate="submit()">
+						<button disabled.bind="loading" class="btn btn-lg btn-info btn-block" click.delegate="submit()">
 							Sign in <i if.bind="loading" class="fa fa-spin fa-spinner"></i>
 						</button>
 </form><!-- /form -->

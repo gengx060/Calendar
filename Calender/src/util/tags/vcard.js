@@ -14,6 +14,10 @@ export class Vcard {
 		this.loading = false;
 		this.showS = true;
 		this.showC = false;
+		
+		this.labels = [{name:'employee'},{name:'client'},{name:'provider'}
+		,{name:'client'},{name:'provider'},{name:'client'},{name:'provider'}
+		,{name:'client'},{name:'provider'},{name:'client'},{name:'provider'}];
 	}
 
 	pop() {
@@ -51,7 +55,8 @@ export class Vcard {
 				this.loading = false;
 				let pop = $(this.element).find("[data-toggle=popover]");
 				pop.popover({
-					html: true, 
+					html: true,
+					container: 'body',
 					content: ()=>$(this.element).find('div.hide').html()
 				});
 				console.log(2);
