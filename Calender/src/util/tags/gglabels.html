@@ -3,7 +3,7 @@
 		<span style="margin-right: 4px; margin-top: 4px; display:inline-block;" repeat.for="label of labels" class="label label-info">
 			<i class="fa fa-battery-full" style="margin-right: 4px" aria-hidden="true"></i> 
 			${label.name}
-			<a if.bind="false" click.delegate="$parent.remove(label)" style="margin-left: 8px;cursor: pointer; color:white" href="#">x</a>
+			<a if.bind="true" click.delegate="$parent.remove(label)" style="margin-left: 8px;cursor: pointer; color:white" href="#">x</a>
 		</span>
 	</div>
 </template>

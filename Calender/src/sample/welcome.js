@@ -11,6 +11,7 @@ import {Edit1} from "pages/user/edit.js";
 console.log(Edit1);
 let httpClient = new HttpClient();
 import Util from 'lib/util';
+import {Newlabel} from 'pages/label/newlabel';
 
 //@inject(Element)
 @inject(Element, ViewFactory)
@@ -26,13 +27,6 @@ export class Welcome {
 	tags = null;
 	labels = [{name:'employee'},{name:'client'},{name:'provider'}];
 	labels1 = 1;
-	contacts1 = [{name:'hongyu li', img:'1', email:'i@1.com'},
-				{name:'hongyu li', img:'2', email:'i@1.com'},
-				{name:'hongyu li', img:'default', email:'i@1.com'},
-				{name:'hongyu li', img:'default', email:'i@1.com'},
-				{name:'hongyu li', img:'default', email:'i@1.com'},
-				{name:'hongyu li', img:'default', email:'i@1.com'},
-				{name:'hongyu li', img:'default', email:'i@1.com'}]
 	
 	selectOptions = [
 		{label: 'My Option', value: 'my-value'},
@@ -49,12 +43,19 @@ export class Welcome {
 		//console.log(this.element);
 		this.loadContacts()
 		this.edit = Edit1;
+
+		this.labelModal = null;
 		//debugger;
 	}
-	
+
 	activate() {
 		this.loadContacts()
 	};
+
+	openLabelModal() {
+		this.labelModal = this.labelModal || Newlabel.create(this.element, this.viewFactory);
+		this.labelModal.show();
+	}
 
 	get fullName() {
 		return `${this.firstName} ${this.lastName}`;
@@ -194,6 +195,10 @@ export class Welcome {
 		}
 	}
 	deactivate() {
+		if (this.labelModal) {
+			this.labelModal.remove();
+		}
+
 		//BootstrapDialog.success('Goodbye data has been cleaned up !');
 	};
 

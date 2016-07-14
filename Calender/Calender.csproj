@@ -3178,11 +3178,15 @@
     <Content Include="src\pages\account\signup.js" />
     <Content Include="src\pages\account\singout.js" />
     <Content Include="src\pages\account\style.css" />
+    <Content Include="src\pages\label\newlabel.html" />
+    <Content Include="src\pages\label\newlabel.js" />
     <Content Include="src\pages\user\edit.html" />
     <Content Include="src\pages\user\edit.js" />
     <Content Include="src\sample\welcome.css" />
     <Content Include="src\util\tags\datepicker.html" />
     <Content Include="src\util\tags\datepicker.js" />
+    <Content Include="src\util\tags\gglabels.html" />
+    <Content Include="src\util\tags\gglabels.js" />
     <Content Include="src\util\tags\ggselect.html" />
     <Content Include="src\util\tags\ggselect.js" />
     <Content Include="src\util\tags\ggstag.js" />

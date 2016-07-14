@@ -1,10 +1,65 @@
-﻿<!DOCTYPE html>
-<html>
-<head>
-    <title></title>
-	<meta charset="utf-8" />
-</head>
-<body>
-
-</body>
-</html>
+﻿<template>
+	<div if.bind="modalShow" class="modal show" role="dialog" data-backdrop="static">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" click.delegate="hide()">&times;</button>
+					<h4 class="modal-title">Labels</h4>
+				</div>
+				<div class="modal-body">
+					<form>
+						<fieldset class="form-group">
+							<input type="text" class="form-control input-sm" placeholder="Another input">
+						</fieldset>
+						<fieldset class="form-group">
+							<label for="formGroupExampleInput">Name</label>
+							<input type="text" value.bind="newLabel" class="form-control input-sm" placeholder="Example input">
+						</fieldset>
+						<fieldset class="form-group">
+							<label for="formGroupExampleInput2">Parent</label>
+							<input type="text" class="form-control input-sm" id="formGroupExampleInput2" placeholder="Another input">
+						</fieldset>
+						<fieldset class="form-group">
+							<small class="text-muted">preview</small>
+							<div css="margin-left:15px;background-color: ${newLabelColor};color:${newLabelTextColor}" class="label label-info">${newLabel}</div>
+						</fieldset>
+						<fieldset css="display:table-cell; width: 100%" class="form-group">
+							<div class="col-xs-4">
+								<label for="formGroupExampleInput2">Pick background color</label>
+								<table cellpadding="0" cellspacing="0">
+									<tbody>
+										<tr>
+											<template repeat.for="val of labelColors">
+												<td click.delegate="setColor(val)" css="border: 1px solid #666;height: 17px; line-height: 11px; position: relative; width: 17px; cursor: pointer; background-color:${val.color}">
+													<i if.bind="val.checked" class="fa fa-check"></i>
+												</td>
+											</template>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+							<div class="col-xs-4">
+								<label for="formGroupExampleInput2">Pick text color</label>
+								<table cellpadding="0" cellspacing="0">
+									<tbody>
+										<tr>
+											<template repeat.for="val of textColors">
+												<td click.delegate="setTextColor(val)" css="border: 1px solid #666;height: 17px; line-height: 11px; position: relative; width: 17px; cursor: pointer; background-color:${val.color}">
+													<i if.bind="val.checked" class="fa fa-check"></i>
+												</td>
+											</template>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</fieldset>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary pull-left" disabled.bind="!newLabel" click.delegate="createLabel()">Create label</button>
+					<button type="button" class="btn btn-danger" click.delegate="hide()">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</template>

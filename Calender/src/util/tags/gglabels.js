@@ -19,7 +19,6 @@ constructor(element, bindingEngine) {
 	}
 
 	attached() {
-		this.container = $(this.element).find('div')
 		this.subscription = this.bindingEngine.observerLocator.getArrayObserver(this.labels).subscribe(this.labelsChanged);
 	}
 
@@ -33,6 +32,6 @@ constructor(element, bindingEngine) {
 	}
 
 	detached() {
-		this.subscription.dispose();
+		//this.subscription.dispose();
 	}
 }
